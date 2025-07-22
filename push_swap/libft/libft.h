@@ -15,8 +15,25 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <unistd.h>
-
+# include <stdarg.h>
+void	ft_putchar(const char a);
+void	ft_putstr(char *c);
+int		ft_printf(const char *str, ...);
+// int		ft_strlen(char *c);
+int		type_c(va_list *ap);
+int		type_s(va_list *ap);
+int		type_p(va_list *ap);
+int		unsigned_hex(unsigned long long res);
+int		type_d(va_list *ap);
+int		extraction(unsigned int nb);
+// static void	extraction(int n, char *temp, int neg)
+int		ft_putnbr(int nb);
+int		type_u(va_list *ap);
+int		ft_putnbr_u(unsigned int nb);
+int		int_hex(unsigned int res, int a);
+int		type_x(va_list *ap);
+int		type_xu(va_list *ap);
+int		type_per(char a);
 typedef struct s_list
 {
 	void			*content;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_putchar(const char a)
 {
@@ -94,10 +94,10 @@ int	ft_printf(const char *str, ...)
 	return (cnt);
 }
 
-#include "ft_printf.h"
+/*#include "ft_printf.h"
 
 int main(void)
 {
 	ft_printf("%d", 10);
 	return (0);
-}
+}*/
