@@ -29,15 +29,15 @@ void	ft_putstr(char *c)
 	}
 }
 
-/*int	ft_strlen(char *c)
-{
-	int	i;
+// int	ft_strlen(char *c)
+// {
+// 	int	i;
 
-	i = 0;
-	while (c[i])
-		i++;
-	return (i);
-}*/
+// 	i = 0;
+// 	while (c[i])
+// 		i++;
+// 	return (i);
+// }
 
 int	ft_form(const char *str, va_list *ap)
 {
@@ -94,10 +94,10 @@ int	ft_printf(const char *str, ...)
 	return (cnt);
 }
 
-/*#include "ft_printf.h"
+// #include "ft_printf.h"
 
-int main(void)
-{
-	ft_printf("%d", 10);
-	return (0);
-}*/
+// int main(void)
+// {
+// 	ft_printf("%d", 10);
+// 	return (0);
+// }

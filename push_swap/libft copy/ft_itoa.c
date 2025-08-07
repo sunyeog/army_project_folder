@@ -40,7 +40,7 @@ static char	*ft_mkmal(int n, int neg)
 	return (temp);
 }
 
-static void	c_extraction(int n, char *temp, int neg)
+static void	extraction(int n, char *temp, int neg)
 {
 	long long int	x;
 	int				y;
@@ -88,7 +88,7 @@ char	*ft_itoa(int n)
 		return (NULL);
 	if (n == 0)
 	{
-		c_extraction(n, temp, neg);
+		extraction(n, temp, neg);
 		return (temp);
 	}
 	else if (n == -2147483648)
@@ -96,7 +96,7 @@ char	*ft_itoa(int n)
 	else
 	{
 		temp[0] = '-';
-		c_extraction(n, temp, neg);
+		extraction(n, temp, neg);
 		return (temp);
 	}	
 }

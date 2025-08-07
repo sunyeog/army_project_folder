@@ -29,7 +29,7 @@ void	ft_putstr(char *c)
 	}
 }
 
-/*int	ft_strlen(char *c)
+int	ft_strlen(char *c)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ void	ft_putstr(char *c)
 	while (c[i])
 		i++;
 	return (i);
-}*/
+}
 
 int	ft_form(const char *str, va_list *ap)
 {
