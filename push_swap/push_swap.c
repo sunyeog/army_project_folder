@@ -7,41 +7,45 @@ typedef struct s_stack
     int size;
 } t_stack;
 
-int *mk_stackA(int ac, char **av)
+t_stack *mk_structA(int ac, char **av)
 {
-    int *arr;
     int i;
+    t_stack *a;
 
     i = 0;
-    arr = (int *)malloc(sizeof(int) * ac - 1);
+    a = malloc(sizeof(t_stack));
+    a->arr = malloc(sizeof(int) * ac - 1);
     while(av[i])
     {
-        arr[i] = ft_atoi(av[i + 1])
+        a->arr[i] = ft_atoi(av[i + 1])
         i++;
     }
-    return (arr);
+    a->top = a->arr[0];
+    a->size = ac - 1;
+    return (a);
 }
 
-int *mk_stackB(int ac, char **av)
+t_stack *mk_structB(int ac, char **av)
 {
-    int *arr;
+    t_stack *b;
 
-    arr = (int *)malloc(sizeof(int) * ac - 1);
-    return (arr);
+    b = malloc(sizeof(t_stack));
+    b->top = b->arr[0];
+    b->size = ac - 1;
+    return (b);
 }
 
-void
+
 int main(int ac, char **av)
 {
     int len;
 
-    t_stack a;
-    t_stack b;
-    
-    a.arr = mk_stackA(ac, av);
-    b.arr = mk_stackB(ac, av);
+    t_stack *a;
+    t_stack *b;
 
-    
+    a = mk_structA(ac, av);
+    b = mk_structB(ac, av);
+
     av[0][0] = 0;
     len = ac;
     ft_printf("%d\n", len);
