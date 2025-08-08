@@ -35,7 +35,6 @@ t_stack *mk_structB(int ac, char **av)
     return (b);
 }
 
-
 int main(int ac, char **av)
 {
     int len;
@@ -46,8 +45,8 @@ int main(int ac, char **av)
     a = mk_structA(ac, av);
     b = mk_structB(ac, av);
 
-    av[0][0] = 0;
-    len = ac;
-    ft_printf("%d\n", len);
-    return 0;
+    // av[0][0] = 0;
+    // len = ac;
+    // ft_printf("%d\n", len);
+    // return 0;
 }
