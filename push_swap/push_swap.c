@@ -1,49 +1,36 @@
 #include "push_swap.h"
 
-typedef struct s_stack
+typedef struct s_node
 {
-    int *arr;
-    int top;
-    int size;
-} t_stack;
+    int data;
+    t_node *next;
+} t_node;
 
-t_stack *mk_structA(int ac, char **av)
+typedef struct s_point
 {
-    int i;
-    t_stack *a;
+    t_node  *head;
+    t_node  *cur;
+    t_node  *tail;
+    int     len;
+} t_point;
 
-    i = 0;
-    a = malloc(sizeof(t_stack));
-    a->arr = malloc(sizeof(int) * ac - 1);
-    while(av[i])
-    {
-        a->arr[i] = ft_atoi(av[i + 1])
-        i++;
-    }
-    a->top = a->arr[0];
-    a->size = ac - 1;
-    return (a);
+void    l_init(t_point *p)
+{
+    p->head = (t_node   *)malloc(sizeof(t_node));
+    p->head->next = NULL;
+    p->len = 0;
 }
 
-t_stack *mk_structB(int ac, char **av)
+void    Finsert(t_point *p, int d)
 {
-    t_stack *b;
-
-    b = malloc(sizeof(t_stack));
-    b->top = b->arr[0];
-    b->size = ac - 1;
-    return (b);
+    t_node  *new = (t_node  *)malloc(sizeof(t_node));
+    new->data = d;
+    p->next = new;
+    new->next = NULL;
 }
 
 int main(int ac, char **av)
 {
-    int len;
-
-    t_stack *a;
-    t_stack *b;
-
-    a = mk_structA(ac, av);
-    b = mk_structB(ac, av);
 
     // av[0][0] = 0;
     // len = ac;
