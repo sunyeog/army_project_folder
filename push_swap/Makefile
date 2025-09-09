@@ -1,19 +1,17 @@
 CC = cc
 FLAG = -Werror -Wextra -Wall 
-SRC = 
+SRC = push_swap.c 
 OBJ = $(SRC:.c=.o)
-NAME = so_long
-LIBA = ./mlx
-LIBAA = libmlx.a
-LIBF = ./Libft
-LIBFF = libft.a
+NAME = push_swap
+LIBA = ./libft
+LIBAA = libft.a
+
 
 all: ${NAME}
 
 ${NAME} : $(OBJ)
 	make -C $(LIBA) 
-	make -C $(LIBF)
-	$(CC) $(FLAG) -I./ -Lmlx $(SRC) -o $(NAME)  $(LIBF)/$(LIBFF) -lmlx -lXext -lX11 -lm
+	$(CC) $(FLAG) -I./ $(SRC) -o $(NAME)  $(LIBA)/$(LIBAA)
 
 clean :
 	/bin/rm -f $(OBJ)
