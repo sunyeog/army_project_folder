@@ -1,4 +1,5 @@
 #include "push_swap.h"
+#include <time.h>
 
 typedef struct s_stack
 {
