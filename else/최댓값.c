@@ -15,7 +15,7 @@ int main()
         }
         i++;
     }
-    printf("%d\n%d\n", b, s_i);
+    printf("%d\n%d\n", b, s_i+1);
     return (0);
     
 }
