@@ -1,40 +1,75 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int cmp_str(char **chess, int a, int b)
+
+int if_W(char **chess, int x, int y)
 {
-    char num1[9] = BW";
-    char num2[9] = "WBWBWBWB"BWBWBW";
+    char num1[9] = "WBWBWBWB";
+    char num2[9] = "BWBWBWBW";
+    
     int i = 0, j = 0;
-    chess[b + i][a + j]
-}
-
-int if_B(char *chess, int a, int b)
-{
-    char num1[9] = "BWBWBWBW";
-    char num2[9] = "WBWBWBWB";
-
-    int i = 0;
-    while (i < 8)
+    int cnt = 0;
+    while (i < 4)
     {
-        chess[i]
-    }
-}
-
-
-
-int return_lowest(char **chess, int a, int b)
-{
-    int lowest = 32;
-    int i = 0, j = 0;
-    while (i + 7 < a)
-    {
-        while (j + 7 < b)
+        j = 0;
+        while (j < 8)
         {
-            chess[i][j]
+            if (chess[y + 2*i][x + j] != num1[j])
+                cnt++;
+            if (chess[y + (2 * i + 1)][x + j] != num2[j])
+                cnt++;    
             j++;
         }
         i++;
+    }
+    return (cnt);
+}
+
+int if_B(char **chess, int x, int y)
+{
+    char num1[9] = "BWBWBWBW";
+    char num2[9] = "WBWBWBWB";
+    int i = 0, j = 0;
+    int cnt = 0;
+    while (i < 4)
+    {
+        j = 0;
+        while (j < 8)
+        {
+            if (chess[y + 2*i][x + j] != num1[j])
+                cnt++;
+            if (chess[y + (2 * i + 1)][x + j] != num2[j])
+                cnt++;    
+            j++;
+        }
+        i++;
+    }
+    return (cnt);
+}
+
+int mv_start(char **chess, int a, int b)
+{
+    int x = 0, y = 0;
+    int lowest = 64;
+    int W_cnt, B_cnt;
+    int check;
+    while (y + 7 < b)
+    {
+        //핵심 로직, 항상 시작이 W,B일때를 서로 비교해야한다.
+        x = 0;
+        while (x + 7 < a)
+        {
+            W_cnt = if_W(chess, x, y);
+            B_cnt = if_B(chess, x, y);
+            if (W_cnt < B_cnt)
+                check = W_cnt;
+            else
+                check = B_cnt;
+            if (lowest > check)
+                lowest = check;
+            x++;
+        }
+        y++;
     }
     return (lowest);
 }
@@ -45,16 +80,24 @@ int main()
     int i = 0;
     
     scanf("%d %d", &a, &b);
-    char **chess = (char **)malloc(sizeof(char *) * (b + 1));
-    chess[b] = NULL;
+    char **chess = (char **)malloc(sizeof(char *) * (a + 1));
+    chess[a] = NULL;
     char *str;
-    while (i < b)
+    while (i < a)
     {
-        str = (char *)malloc(sizeof(char) * (a + 1));
-        str[a] = '\0';
+        str = (char *)malloc(sizeof(char) * (b + 1));
+        str[b] = '\0';
         scanf("%s", str);
         chess[i] = str;
         i++;
     }
-    
+    printf("%d\n", mv_start(chess, b, a));
+    i = 0;
+    while (i < a)
+    {
+        free(chess[i]);
+        i++;
+    }
+    free(chess);
+    return (0);
 }
