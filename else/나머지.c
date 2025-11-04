@@ -17,7 +17,7 @@ int res(bool arr[], int num[])
     int i = 0;
     while(i < 10)
     {
-        arr[num[i]%42] = true;
+        arr[num[i] % 42] = true;
         i++;
     }
     return (cal(arr));
