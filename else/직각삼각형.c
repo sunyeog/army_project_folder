@@ -7,10 +7,31 @@ int main()
     while(1)
     {
         scanf("%d %d %d", &a, &b, &c);
+        int q, w, e;
+        if (a >= b && a >= c)
+        {
+            q = a;
+            w = b;
+            e = c;
+        }
+        else if (b >= a && b >= c)
+        {
+            q = b;
+            w = a;
+            e = c;
+        }
+        else if (c >= b && c >= a)
+        {
+            q = c;
+            w = b;
+            e = a;
+        }
 
         if (a == 0 && b == 0 && c == 0)
             break;
-        if (((a*a) + (b*b)) == (c*c))
+        
+
+        if (((w*w) + (e*e)) == (q*q))
             printf("%s\n", "right");
         else
             printf("%s\n", "wrong");
