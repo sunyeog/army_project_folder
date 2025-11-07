@@ -26,6 +26,14 @@ t_point *l_init(void)//header 생성 및 초기화
     return (p);
 }
 
+t_node  pop(t_point *p)
+{
+    t_node temp = p->head;
+    p->head = p->head->next;
+    temp->next = temp;
+    return (temp);
+}
+
 void    Finsert(t_point *p, int d)//첫 노드생성 후 값 삽입
 {
     t_node  *new = (t_node  *)malloc(sizeof(t_node));
@@ -46,22 +54,26 @@ void    insert(t_point *p, int d)//첫 노드 이후 값들 연결
     new->next = NULL;
 }
 
-
-
 int main(int ac, char **av)
 {
     t_point *p;
     int value;
-
-    p = l_init();
-    value = ft_atoi(av[1]);
-    Finsert(p, value);
     int i;
 
+    p = l_init();
+    value = ft_atoi(av[ac - 1]);
+    Finsert(p, value);
+
     i = 0;
-    while (i < ac - 1)
+    while (i < ac - 2)
+    {
+        value = ft_atoi(av[ac - 2 - i]);
+        insert(p, value);
+        i++;
+    }
     
     ft_printf("%d\n", p->head->data);
+    ft_printf("%d\n", p->cur->data);
     ft_printf("%d\n", ac);
     return 0;
 
