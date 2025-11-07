@@ -36,12 +36,14 @@ void    Finsert(t_point *p, int d)//첫 노드생성 후 값 삽입
     new->next = NULL;
 }
 
-void    insert(t_point *p, int d)
+void    insert(t_point *p, int d)//첫 노드 이후 값들 연결
 {
     t_node  *new = (t_node  *)malloc(sizeof(t_node));
     new->data = d;
     p->cur->next = new;
-    new = p->cur;
+    p->cur = new;
+    p->tail = new;
+    new->next = NULL;
 }
 
 
@@ -54,6 +56,10 @@ int main(int ac, char **av)
     p = l_init();
     value = ft_atoi(av[1]);
     Finsert(p, value);
+    int i;
+
+    i = 0;
+    while (i < ac - 1)
     
     ft_printf("%d\n", p->head->data);
     ft_printf("%d\n", ac);
