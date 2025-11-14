@@ -16,22 +16,22 @@ typedef struct s_point
     int     len;
 } t_point;
 
-t_point *l_init(void)//header 생성 및 초기화
+t_point *l_init(void)// header 생성 및 초기화
 {
     t_point *p = (t_point *)malloc(sizeof(t_point));
-
+    
     p->head = (t_node   *)malloc(sizeof(t_node));
     p->head->next = NULL;
     p->len = 0;
     return (p);
 }
 
-t_node  pop(t_point *p)
+void  pop(t_point *p)
 {
-    t_node temp = p->head;
+    t_node *temp = p->head;
     p->head = p->head->next;
     temp->next = temp;
-    return (temp);
+    free(temp);
 }
 
 void    Finsert(t_point *p, int d)//첫 노드생성 후 값 삽입
@@ -50,7 +50,7 @@ void    insert(t_point *p, int d)//첫 노드 이후 값들 연결
     new->data = d;
     p->cur->next = new;
     p->cur = new;
-    p->tail = new;
+    p->head = new;
     new->next = NULL;
 }
 
@@ -71,10 +71,28 @@ int main(int ac, char **av)
         insert(p, value);
         i++;
     }
-    
-    ft_printf("%d\n", p->head->data);
-    ft_printf("%d\n", p->cur->data);
-    ft_printf("%d\n", ac);
+    i = 0;
+    t_node *cur = p->tail;
+    while (i < ac - 1)
+    {
+        ft_printf("%d\n" ,cur->data);
+        cur = cur->next;
+        i++;
+    }
+
+    pop(p);
+    i = 0;
+    cur = p->tail;
+    ft_printf("-------------------");
+    while (i < ac - 2)
+    {
+        ft_printf("%d\n" ,cur->data);
+        cur = cur->next;
+        i++;
+    }
+    // ft_printf("%d\n", p->head->data);
+    // ft_printf("%d\n", p->cur->data);
+    // ft_printf("%d\n", ac);
     return 0;
 
     // av[0][0] = 0;
