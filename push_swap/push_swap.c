@@ -10,9 +10,7 @@ struct s_node
 
 typedef struct s_point
 {
-    t_node  *head;
-    t_node  *cur;
-    t_node  *tail;
+    t_node  *top;
     int     len;
 } t_point;
 
@@ -20,16 +18,16 @@ t_point *l_init(void)// header 생성 및 초기화
 {
     t_point *p = (t_point *)malloc(sizeof(t_point));
     
-    p->head = (t_node   *)malloc(sizeof(t_node));
-    p->head->next = NULL;
+    p->top = (t_node   *)malloc(sizeof(t_node));
+    p->top->next = NULL;
     p->len = 0;
     return (p);
 }
 
 void  pop(t_point *p)
 {
-    t_node *temp = p->head;
-    p->head = p->head->next;
+    t_node *temp = p->top;
+    p->top = p->top->next;
     temp->next = temp;
     free(temp);
 }
@@ -38,19 +36,16 @@ void    Finsert(t_point *p, int d)//첫 노드생성 후 값 삽입
 {
     t_node  *new = (t_node  *)malloc(sizeof(t_node));
     new->data = d;
-    p->head = new;
-    p->tail = new;
-    p->cur = new;
+    p->top = new;
     new->next = NULL;
 }
 
-void    insert(t_point *p, int d)//첫 노드 이후 값들 연결
+void    push(t_point *p, int d)//첫 노드 이후 값들 연결
 {
     t_node  *new = (t_node  *)malloc(sizeof(t_node));
     new->data = d;
-    p->cur->next = new;
-    p->cur = new;
-    p->head = new;
+    p->top->next = new;
+    p->top = new;
     new->next = NULL;
 }
 
@@ -58,39 +53,15 @@ int main(int ac, char **av)
 {
     t_point *p;
     int value;
-    int i;
 
     p = l_init();
     value = ft_atoi(av[ac - 1]);
     Finsert(p, value);
 
-    i = 0;
-    while (i < ac - 2)
-    {
-        value = ft_atoi(av[ac - 2 - i]);
-        insert(p, value);
-        i++;
-    }
-    i = 0;
-    t_node *cur = p->tail;
-    while (i < ac - 1)
-    {
-        ft_printf("%d\n" ,cur->data);
-        cur = cur->next;
-        i++;
-    }
+    t_node *cur = p->top;
+    ft_printf("%d\n" ,cur->data);
 
-    pop(p);
-    i = 0;
-    cur = p->tail;
-    ft_printf("-------------------");
-    while (i < ac - 2)
-    {
-        ft_printf("%d\n" ,cur->data);
-        cur = cur->next;
-        i++;
-    }
-    // ft_printf("%d\n", p->head->data);
+    // ft_printf("%d\n", p->top->data);
     // ft_printf("%d\n", p->cur->data);
     // ft_printf("%d\n", ac);
     return 0;
