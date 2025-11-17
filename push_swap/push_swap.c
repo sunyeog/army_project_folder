@@ -71,6 +71,7 @@ int main(int ac, char **av)
         i++;
     }
     pop(p);
+    
     i = 0;
     t_node *cur = p->top;
     while (i < ac - 2)
