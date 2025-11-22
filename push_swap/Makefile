@@ -1,6 +1,6 @@
 CC = cc
 FLAG = -Werror -Wextra -Wall 
-SRC = push_swap.c 
+SRC = push_swap.c push_swap_utils.c
 OBJ = $(SRC:.c=.o)
 NAME = push_swap
 LIBA = ./libft
