@@ -17,4 +17,5 @@ clean :
 	/bin/rm -f $(OBJ)
 fclean : clean
 	  /bin/rm -f $(NAME)
+	  make -C $(LIBA) fclean
 re : fclean all
