@@ -28,5 +28,29 @@ void ss(t_point *stack_A, t_point *stack_B)
 
 void pa(t_point *stack_A, t_point *stack_B)
 {
+    if (stack_B -> size == 0)
+        return;
+    push(stack_A, stack_B->top->data);
+    pop(stack_B);
+}
 
+void pb(t_point *stack_A, t_point *stack_B)
+{
+    if (stack_A -> size == 0)
+        return;
+    push(stack_B, stack_A->top->data);
+    pop(stack_A);
+}
+
+void ra(t_point *stack_A)
+{
+    if (stack_A -> size == 0 || stack_A -> size == 1)
+        return;
+    t_node *temp;
+    
+    temp = stack_A -> top;
+    stack_A -> top = stack_A -> top -> next;
+    stack_A -> bottom -> next = temp;
+    stack_A -> bottom = stack_A -> bottom -> next;
+    stack_A -> bottom -> next = NULL;
 }

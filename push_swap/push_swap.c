@@ -11,6 +11,7 @@ struct s_node
 typedef struct s_point
 {
     t_node  *top;
+    t_node  *bottom;
     int     size;
 } t_point;
 
@@ -20,6 +21,7 @@ t_point *l_init(void)// header 생성 및 초기화
     
     p->top = (t_node *)malloc(sizeof(t_node));
     p->top->next = NULL;
+    p->bottom = p->top;
     p->size = 0;
     return (p);
 }
@@ -100,6 +102,9 @@ int main(int ac, char **av)
         i++;
     }
     ft_printf("size : %d\n", stack_A->size);
+    ft_printf("top : %d\n", stack_A->top->data);
+    ft_printf("bottom : %d\n", stack_A->bottom->data);
+    
 
     // ft_printf("%d\n", p->top->data);
     // ft_printf("%d\n", p->cur->data);
