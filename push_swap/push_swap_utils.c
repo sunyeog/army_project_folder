@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nosunhyeog <marvin@42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/18 14:25:06 by nosunhyeog        #+#    #+#             */
+/*   Updated: 2024/03/22 19:36:26 by sunhnoh          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 void sa(t_point *stack_A)
 {
     int temp;
@@ -47,10 +59,29 @@ void ra(t_point *stack_A)
     if (stack_A -> size == 0 || stack_A -> size == 1)
         return;
     t_node *temp;
-    
+
     temp = stack_A -> top;
     stack_A -> top = stack_A -> top -> next;
     stack_A -> bottom -> next = temp;
     stack_A -> bottom = stack_A -> bottom -> next;
     stack_A -> bottom -> next = NULL;
+}
+
+void rb(t_point *stack_B)
+{
+    if (stack_B -> size == 0 || stack_B -> size == 1)
+        return;
+    t_node *temp;
+
+    temp = stack_B -> top;
+    stack_B -> top = stack_B -> top -> next;
+    stack_B -> bottom -> next = temp;
+    stack_B -> bottom = stack_B -> bottom -> next;
+    stack_B -> bottom -> next = NULL;
+}
+
+void rr(t_point *stack_A, t_point *stack_B) 
+{
+    ra(stack_A);
+    rb(stack_B);
 }

@@ -55,7 +55,7 @@ int mv_start(char **chess, int a, int b)
     int check;
     while (y + 7 < b)
     {
-        //핵심 로직, 항상 시작이 W,B일때를 서로 비교해야한다.
+        //핵심 로직, 항상 시작이 W,B일때를 둘다 비교해야한다.
         x = 0;
         while (x + 7 < a)
         {
