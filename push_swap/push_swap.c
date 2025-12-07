@@ -5,6 +5,7 @@ typedef struct s_node t_node;
 struct s_node
 {
     int data;
+    t_node *prev;
     t_node *next;
 } ;
 
@@ -19,8 +20,9 @@ t_point *l_init(void)// header 생성 및 초기화
 {
     t_point *p = (t_point *)malloc(sizeof(t_point));
     
-    p->top = (t_node *)malloc(sizeof(t_node));
-    p->top->next = NULL;
+    p -> top = (t_node *)malloc(sizeof(t_node));
+    p -> top -> next = NULL;
+    p -> top -> prev = NULL;
     p->bottom = p->top;
     p->size = 0;
     return (p);
@@ -28,25 +30,40 @@ t_point *l_init(void)// header 생성 및 초기화
 
 void  pop(t_point *p)
 {
-    t_node *temp = p->top;
-    p->top = p->top->next;
-    free(temp);
-    p->size--;
-}
+    if (p -> size == 0)
+        return;
+    if (p -> size == 1)
+    {
+        free(p -> top);
+        p -> top = NULL;
+        p -> bottom = NULL; 
+        p -> size--;
+        return;
+    }
+    t_node  *temp;
 
-void    F_push(t_point *p, int d)//첫 노드생성 후 값 삽입
-{
-    p->top->data = d;
-    p->size++;
+    temp = p -> top;
+    p -> top = p -> top -> next;
+    p -> top -> prev = NULL;
+    free(temp);
+    p -> size--;
 }
 
 void    push(t_point *p, int d)//첫 노드 이후 값들 연결
 {
+    if (p -> size == 0)
+    {
+        p->top->data = d;
+        p->size++;
+        return;
+    }
     t_node  *new = (t_node  *)malloc(sizeof(t_node));
-    new->data = d;
-    new->next = p->top;
-    p->top = new;
-    p->size++;
+    new -> data = d;
+    new -> prev = NULL;
+    new -> next = p -> top;
+    p -> top -> prev = new;
+    p -> top = new;
+    p -> size++;
 }
 
 int main(int ac, char **av)
