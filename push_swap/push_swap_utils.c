@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nosunhyeog <marvin@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,6 +9,8 @@
 /*   Updated: 2024/03/22 19:36:26 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 void	sa(t_point *stack_A)
 {
@@ -90,7 +92,32 @@ void    rra(t_point *stack_A)
 {
     if (stack_A -> size == 0 || stack_A -> size == 1)
         return;
-    t_node *temp;
-
     
+    stack_A -> bottom -> next = stack_A -> top;
+    stack_A -> top -> prev = stack_A -> bottom;
+    stack_A -> top = stack_A -> bottom;
+    stack_A -> bottom = stack_A -> bottom -> prev;
+    stack_A -> bottom -> next = NULL;
+    stack_A -> top -> prev = NULL;
+    return;
+}
+
+void    rrb(t_point *stack_B)
+{
+    if (stack_B -> size == 0 || stack_B -> size == 1)
+        return;
+    
+    stack_B -> bottom -> next = stack_B -> top;
+    stack_B -> top -> prev = stack_B -> bottom;
+    stack_B -> top = stack_B -> bottom;
+    stack_B -> bottom = stack_B -> bottom -> prev;
+    stack_B -> bottom -> next = NULL;
+    stack_B -> top -> prev = NULL;
+    return;
+}
+
+void    rrr(t_point *stack_A, t_point *stack_B)
+{
+    rra(stack_A);
+    rrb(stack_B);
 }
