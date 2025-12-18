@@ -82,6 +82,7 @@ int main(int ac, char **av)
     while (i < ac - 2)
     {
         value = ft_atoi(av[ac - 2 - i]);
+        //if 배열값이 여러개일 때 추가
         push(stack_A, value);
         i++;
     }
