@@ -81,10 +81,15 @@ int main(int ac, char **av)
     int i = 0;
     while (i < ac - 2)
     {
-        value = ft_atoi(av[ac - 2 - i]);
-        //if 배열값이 여러개일 때 추가
-        push(stack_A, value);
-        i++;
+        //if 배열값이 여러개일 때 따로 작업 추가
+        if (check_av(av[ac - 2 - i]) == 1)
+            many_push(av[ac - 2 - i]);
+        else
+        {
+            value = ft_atoi(av[ac - 2 - i]);
+            push(stack_A, value);
+            i++;
+        }
     }
 
 
