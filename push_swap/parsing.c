@@ -35,12 +35,11 @@ void    split_free(char **arr, int  len)
     int i;
     int len;
 
-    arr = ft_split(av);
+    arr = ft_split(av, ' ');
     i = 0;
-    while (arr[i] != NULL)
-        i++;
-    len = i;
-    i = 0;
+    len = 0;
+    while (arr[len] != NULL)
+        len++;
     while (i < len)
     {
         push(stack_A, ft_atoi(arr[len - 1 - i]));
