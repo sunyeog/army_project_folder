@@ -99,14 +99,14 @@ char	**ft_split(char const *s, char c)
 	save_malloc(s, c, res);
 	return (res);
 }
-/*
+
 #include <stdio.h>
 
 int main(void)
 {
 	char **res;
 	int	i = 0;
-	res = ft_split("      split       this for   me  !       ", ' ');
+	res = ft_split("1", ' ');
 	while (res[i])
 		printf("%s\n", res[i++]);
-}*/
+}

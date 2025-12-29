@@ -3,13 +3,11 @@
 int check_av(char *av)
 {
     int i;
-    int len;
-    
-    len = ft_strlen(av);
+
     i = 0;
-    while (i < len)
+    while (av[i])
     {
-        if (av[i] == " ")
+        if (av[i] == ' ')
             return (1);
         i++;
     }
