@@ -14,12 +14,12 @@ int check_av(char *av)
     return (0);
 }
 
-void    split_free(char **arr, int  len)
+void    split_free(char **arr)
 {
     int i;
 
     i = 0;
-    while (i < len)
+    while (arr[i])
     {
         free(arr[i]);
         i++;
@@ -27,13 +27,40 @@ void    split_free(char **arr, int  len)
     free(arr);
 }
 
- void   if_many_arg(char *av)
- {
+int is_num(char **arr)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (arr[i])
+    {
+        j = 0;
+        while (arr[i][j])
+        {
+            if (ft_isalnum(arr[i][j]) == 1 || ft_isalnum(arr[i][j]) == 2)
+                return (0);
+            j++;
+        }
+        i++;
+    }
+    return (1);
+}
+
+int   if_many_arg(char *av)
+{
     char    **arr;
     int i;
     int len;
 
     arr = ft_split(av, ' ');
+    if (is_num(arr) == 0)
+    {
+        split_free(arr);
+        return (0);
+    }
+    if (!arr || !arr[0])
+        return (0);
     i = 0;
     len = 0;
     while (arr[len] != NULL)
@@ -43,8 +70,8 @@ void    split_free(char **arr, int  len)
         push(stack_A, ft_atoi(arr[len - 1 - i]));
         i++;
     }
-    split_free(arr, len);
- }
+    split_free(arr);
+}
 
 int dup(chat **av)
 {
