@@ -27,7 +27,7 @@ void    split_free(char **arr, int  len)
     free(arr);
 }
 
- void   many_push(char *av)
+ void   if_many_arg(char *av)
  {
     char    **arr;
     int i;

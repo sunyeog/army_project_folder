@@ -83,7 +83,7 @@ int main(int ac, char **av)
     {
         //if 배열값이 여러개일 때 따로 작업 추가
         if (check_av(av[ac - 2 - i]) == 1)
-            many_push(av[ac - 2 - i]);
+            if_many_arg(av[ac - 2 - i]);
         else
         {
             value = ft_atoi(av[ac - 2 - i]);
