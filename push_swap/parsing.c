@@ -16,6 +16,11 @@ int check_int(char av[])
     return (1);
 }
 
+int check_range(char av[])
+{
+    //------------------START
+}
+
 void    split_free(char **arr)
 {
     int i;
