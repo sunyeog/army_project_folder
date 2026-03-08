@@ -1,5 +1,21 @@
 #include "push_swap.h"
 
+int check_int(char av[])
+{
+    int i;
+
+    i = 1;
+    if (!((av[0] >= '0' && av[0] <= '9') || av[0] == '+' || av[0] == '-'))
+        return (0);
+    while(av[i])
+    {
+        if (!(av[i] >= '0' && av[i] <= '9'))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
 void    split_free(char **arr)
 {
     int i;
