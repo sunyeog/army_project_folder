@@ -65,8 +65,10 @@ void    ra(t_point *stack_A)
     temp = stack_A -> top;
     stack_A -> top = stack_A -> top -> next;
     stack_A -> bottom -> next = temp;
-    stack_A -> bottom = stack_A -> bottom -> next;
+    temp -> prev = stack_A -> bottom;
+    stack_A -> bottom = temp;
     stack_A -> bottom -> next = NULL;
+    stack_A -> top -> prev = NULL;
 }
 
 void    rb(t_point *stack_B)
@@ -78,8 +80,10 @@ void    rb(t_point *stack_B)
     temp = stack_B -> top;
     stack_B -> top = stack_B -> top -> next;
     stack_B -> bottom -> next = temp;
-    stack_B -> bottom = stack_B -> bottom -> next;
+    temp -> prev = stack_B -> bottom;
+    stack_B -> bottom = temp;
     stack_B -> bottom -> next = NULL;
+    stack_B -> top -> prev = NULL;
 }
 
 void    rr(t_point *stack_A, t_point *stack_B) 
