@@ -16,7 +16,7 @@ int check_int(char av[])
     return (1);
 }
 
-int check_max(t_point stack_A, char av[])
+int check_max(t_point *stack_A, char av[])
 {
     push(stack_A, ft_long_atoi(av));
 }

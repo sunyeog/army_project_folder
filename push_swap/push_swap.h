@@ -34,8 +34,8 @@ void    rrb(t_point *stack_B);
 void    rrr(t_point *stack_A, t_point *stack_B);
 void    push(t_point *p, int d);
 void    pop(t_point *p);
-void	check_mxmn(long long int result, int pl)
-int	ft_long_atoi(const char *str)
+void	check_mxmn(long long int result, int pl);
+int	ft_long_atoi(const char *str);
 t_point *l_init(void);
 
 #endif
