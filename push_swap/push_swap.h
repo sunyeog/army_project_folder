@@ -1,6 +1,8 @@
 #ifndef PUSH_SWAP_H
 # define  PUSH_SWAP_H
- 
+
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648 
 #include "libft/libft.h"
 
 typedef struct s_node t_node;
@@ -32,6 +34,8 @@ void    rrb(t_point *stack_B);
 void    rrr(t_point *stack_A, t_point *stack_B);
 void    push(t_point *p, int d);
 void    pop(t_point *p);
+void	check_mxmn(long long int result, int pl)
+int	ft_long_atoi(const char *str)
 t_point *l_init(void);
 
 #endif

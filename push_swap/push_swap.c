@@ -29,7 +29,7 @@ void  pop(t_point *p)
     if (p -> size == 1)
     {
         free(p -> top);
-        p -> top = NULL;
+        p -> top = NULL;
         p -> bottom = NULL; 
         p -> size--;
         return;

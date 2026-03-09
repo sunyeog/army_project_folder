@@ -16,9 +16,9 @@ int check_int(char av[])
     return (1);
 }
 
-int check_range(char av[])
+int check_max(char av[])
 {
-    //------------------START
+    ft_long_atoi(av);
 }
 
 void    split_free(char **arr)
