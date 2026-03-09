@@ -50,7 +50,7 @@ void	ft_long_atoi(t_point *stack_A, char *str)
 		str++;
 	}
 	result *= negative;
-	push(stack_A, ft_long_atoi(str));
+	push(stack_A, (int)result);
 }
 
 void    split_free(char **arr)

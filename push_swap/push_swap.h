@@ -35,7 +35,7 @@ void    rrr(t_point *stack_A, t_point *stack_B);
 void    push(t_point *p, int d);
 void    pop(t_point *p);
 void	check_mxmn(long long int result, int pl);
-void	ft_long_atoi(t_point *stack_A, char *str)
+void	ft_long_atoi(t_point *stack_A, char *str);
 t_point *l_init(void);
 
 #endif
