@@ -16,9 +16,41 @@ int check_int(char av[])
     return (1);
 }
 
-int check_max(t_point *stack_A, char av[])
+void	check_mxmn(long long int result, int pl)
 {
-    push(stack_A, ft_long_atoi(av));
+	long long int sign;
+
+	sign = result * pl;
+	if (sign > INT_MAX || sign < INT_MIN)
+		{
+			ft_printf("Error\n");
+			exit(1);
+		}
+}
+
+void	ft_long_atoi(t_point *stack_A, char *str)
+{
+	long long int	negative;
+	long long int	result;
+
+	result = 0;
+	negative = 1;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			negative *= -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		check_mxmn(result, negative);
+		str++;
+	}
+	result *= negative;
+	push(stack_A, ft_long_atoi(str));
 }
 
 void    split_free(char **arr)
