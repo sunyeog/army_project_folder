@@ -1,19 +1,24 @@
 #include "push_swap.h"
 
-int check_int(char av[])
+void    error(void)
+{
+	ft_printf("Error\n");
+	exit(1);
+}
+
+void check_int(char av[])
 {
     int i;
 
     i = 1;
     if (!((av[0] >= '0' && av[0] <= '9') || av[0] == '+' || av[0] == '-'))
-        return (0);
+        error();
     while(av[i])
     {
         if (!(av[i] >= '0' && av[i] <= '9'))
-            return (0);
+            error();
         i++;
     }
-    return (1);
 }
 
 void	check_mxmn(long long int result, int pl)
@@ -22,10 +27,7 @@ void	check_mxmn(long long int result, int pl)
 
 	sign = result * pl;
 	if (sign > INT_MAX || sign < INT_MIN)
-		{
-			ft_printf("Error\n");
-			exit(1);
-		}
+        error();
 }
 
 void	ft_long_atoi(t_point *stack_A, char *str)
