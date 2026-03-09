@@ -16,9 +16,9 @@ int check_int(char av[])
     return (1);
 }
 
-int check_max(char av[])
+int check_max(t_point stack_A, char av[])
 {
-    ft_long_atoi(av);
+    push(stack_A, ft_long_atoi(av));
 }
 
 void    split_free(char **arr)
