@@ -21,11 +21,11 @@ void check_int(char av[])
     }
 }
 
-void	check_mxmn(long long int result, int pl)
+void	check_mxmn(long long int result, int neg)
 {
 	long long int sign;
 
-	sign = result * pl;
+	sign = result * neg;
 	if (sign > INT_MAX || sign < INT_MIN)
         error();
 }
@@ -55,22 +55,22 @@ void	ft_long_atoi(t_point *stack_A, char *str)
 	push(stack_A, (int)result);
 }
 
-void    split_free(char **arr)
-{
-    int i;
+// void    split_free(char **arr)
+// {
+//     int i;
 
-    i = 0;
-    while (arr[i])
-    {
-        free(arr[i]);
-        i++;
-    }
-    free(arr);
-}
+//     i = 0;
+//     while (arr[i])
+//     {
+//         free(arr[i]);
+//         i++;
+//     }
+//     free(arr);
+// }
 
-int parcing(int ac, char **av)
-{
-    if (ac < 1)
-        return (0);
+// int parcing(int ac, char **av)
+// {
+//     if (ac < 1)
+//         return (0);
     
-}
+// }

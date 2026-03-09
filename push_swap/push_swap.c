@@ -29,7 +29,7 @@ void  pop(t_point *p)
     if (p -> size == 1)
     {
         free(p -> top);
-        p -> top = NULL;
+        p -> top = NULL;
         p -> bottom = NULL; 
         p -> size--;
         return;
@@ -71,18 +71,15 @@ int main(int ac, char **av)
 {
     t_point *stack_A;
     t_point *stack_B;
-    int value;
 
     stack_A = l_init();
     stack_B = l_init();
-    value = ft_atoi(av[ac - 1]);
-    push(stack_A, value);
 
     int i = 0;
-    while (i < ac - 2)
+    while (i < ac - 1)
     {
-        value = ft_atoi(av[ac - 2 - i]);
-        push(stack_A, value);
+        check_int(av[ac - 1 - i]);
+        ft_long_atoi(stack_A, av[ac - 1 - i]);
         i++;
     }
 
