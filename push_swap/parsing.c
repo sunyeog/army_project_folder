@@ -55,18 +55,29 @@ void	ft_long_atoi(t_point *stack_A, char *str)
 	push(stack_A, (int)result);
 }
 
-// void    split_free(char **arr)
-// {
-//     int i;
+char	**to_one_arr(char **av)
+{
+	int	i;
 
-//     i = 0;
-//     while (arr[i])
-//     {
-//         free(arr[i]);
-//         i++;
-//     }
-//     free(arr);
-// }
+	i = 1;
+	while (av[i])
+	{
+		
+	}
+}
+
+void    split_free(char **arr)
+{
+    int i;
+
+    i = 0;
+    while (arr[i])
+    {
+        free(arr[i]);
+        i++;
+    }
+    free(arr);
+}
 
 // int parcing(int ac, char **av)
 // {

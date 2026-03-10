@@ -34,6 +34,7 @@ void    rrb(t_point *stack_B);
 void    rrr(t_point *stack_A, t_point *stack_B);
 void    push(t_point *p, int d);
 void    pop(t_point *p);
+void    split_free(char **arr);
 void    error(void);
 void    check_int(char av[]);
 void	check_mxmn(long long int result, int pl);
