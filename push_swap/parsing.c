@@ -55,17 +55,6 @@ void	ft_long_atoi(t_point *stack_A, char *str)
 	push(stack_A, (int)result);
 }
 
-char	**to_one_arr(char **av)
-{
-	int	i;
-
-	i = 1;
-	while (av[i])
-	{
-		
-	}
-}
-
 void    split_free(char **arr)
 {
     int i;
@@ -79,7 +68,72 @@ void    split_free(char **arr)
     free(arr);
 }
 
-// int parcing(int ac, char **av)
+int	return_split_len(char **av)
+{
+	int	i;
+	int	j;
+	int	len;
+	char **res;
+
+	i = 1;
+	len = 0;
+	while (av[i])
+	{
+		res = ft_split(av[i], ' ');
+		j = 0;
+		while (res[j])
+		{
+			len++;
+			j++;
+		}
+		split_free(res);
+		i++;
+	}
+	return (len);
+}
+
+char	**fill_arr(char **av, char **res)
+{
+	int	i;
+	int	j;
+	int	index;
+	char **temp;
+
+	i = 1;
+	index = 0;
+	while (av[i])
+	{
+		temp = ft_split(av[i], ' ');
+		j = 0;
+		while (temp[j])
+		{
+			res[index] = temp[j];
+			index++;
+			j++;
+		}
+		free(temp);
+		i++;
+	}
+	return (res);
+}
+
+char	**to_new_arr(char **av)
+{
+	char **res;
+	int len;
+
+	len = return_split_len(av);
+	res = (char **)malloc(sizeof(char *) * (len + 1));
+	if (res == NULL)
+		error();
+	res = fill_arr(av, res);
+	res[len] = NULL;
+	return (res);
+}
+
+
+
+// int parsing(int ac, char **av)
 // {
 //     if (ac < 1)
 //         return (0);
