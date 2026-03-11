@@ -6,6 +6,8 @@ void    error(void)
 	exit(1);
 }
 
+//----------------------------------------
+
 void check_int(char av[])
 {
     int i;
@@ -20,6 +22,8 @@ void check_int(char av[])
         i++;
     }
 }
+
+//----------------------------------------
 
 void	check_mxmn(long long int result, int neg)
 {
@@ -55,6 +59,8 @@ void	ft_long_atoi(t_point *stack_A, char *str)
 	push(stack_A, (int)result);
 }
 
+//----------------------------------------
+
 void    split_free(char **arr)
 {
     int i;
@@ -67,7 +73,7 @@ void    split_free(char **arr)
     }
     free(arr);
 }
-
+//----------------------------------------
 int	return_split_len(char **av)
 {
 	int	i;
