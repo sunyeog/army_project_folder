@@ -76,7 +76,6 @@ int main(int ac, char **av)
     stack_A = l_init();
     stack_B = l_init();
     parsing(stack_A, av);
-
     int i;
     
     i = 0;
