@@ -14,8 +14,9 @@
 
 t_point *l_init(void)// header 생성 및 초기화
 {
-    t_point *p = (t_point *)malloc(sizeof(t_point));
-    
+    t_point *p;
+
+    p = (t_point *)malloc(sizeof(t_point));
     p -> top = NULL;
     p -> bottom = NULL;
     p->size = 0;
@@ -43,7 +44,7 @@ void  pop(t_point *p)
     p -> size--;
 }
 
-void    push(t_point *p, int d)//첫 노드 이후 값들 연결
+void    push(t_point *p, int d)
 {
     t_node  *new;
 
@@ -127,14 +128,5 @@ int main(int ac, char **av)
     ft_printf("top : %d\n", stack_A->top->data);
     ft_printf("bottom : %d\n", stack_A->bottom->data);
     
-
-    // ft_printf("%d\n", p->top->data);
-    // ft_printf("%d\n", p->cur->data);
-    // ft_printf("%d\n", ac);
     return 0;
-
-    // av[0][0] = 0;
-    // len = ac;
-    // ft_printf("%d\n", len);
-    // return 0;
 }
