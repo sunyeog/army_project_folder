@@ -137,7 +137,23 @@ char	**to_new_arr(char **av)
 	return (res);
 }
 
+//----------------------------------------
 
+void	check_dup(char **arr)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (arr[i])
+	{
+		j = 0;
+		while (arr[j])
+		{
+			if ()
+		}
+	}
+}
 
 // int parsing(int ac, char **av)
 // {

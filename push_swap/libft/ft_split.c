@@ -100,13 +100,13 @@ char	**ft_split(char const *s, char c)
 	return (res);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int main(void)
-{
-	char **res;
-	int	i = 0;
-	res = ft_split("    1 233 556 648643    ", ' ');
-	while (res[i])
-		printf("%s\n", res[i++]);
-}
+// // int main(void)
+// // {
+// // 	char **res;
+// // 	int	i = 0;
+// // 	res = ft_split("    1 233 556 648643    ", ' ');
+// // 	while (res[i])
+// // 		printf("%s\n", res[i++]);
+// // }

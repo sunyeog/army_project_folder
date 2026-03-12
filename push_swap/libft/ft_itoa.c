@@ -98,7 +98,7 @@ char	*ft_itoa(int n)
 		temp[0] = '-';
 		c_extraction(n, temp, neg);
 		return (temp);
-	}	
+	}
 }
 /*
 #include <stdio.h>
