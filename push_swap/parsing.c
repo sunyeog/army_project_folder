@@ -196,4 +196,5 @@ void parsing(t_point *stack_A, char **av)
 		long_atoi(stack_A, arr[i]);
 		i++;
 	}
+	split_free(arr);
 }
