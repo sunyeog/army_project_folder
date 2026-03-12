@@ -35,6 +35,7 @@ int	return_split_len(char **av)
 	while (av[i])
 	{
 		res = ft_split(av[i], ' ');
+		
 		j = 0;
 		while (res[j])
 		{
@@ -158,17 +159,21 @@ void	check_dup(char **arr)
 {
 	int	i;
 	int	j;
+	int	dup_cnt;
 
 	i = 0;
 	while (arr[i])
 	{
+		dup_cnt = 0;
 		j = 0;
 		while (arr[j])
 		{
-			if (i == j)
-				j++;
 			if (ft_strcmp(arr[i], arr[j]) == 0)
-				error();
+			{
+				dup_cnt++;
+				if (dup_cnt == 2)
+					error();
+			}
 			j++;
 		}
 		i++;
@@ -180,8 +185,9 @@ void	check_dup(char **arr)
 void parsing(t_point *stack_A, char **av)
 {
 	int	i;
-    char **arr = to_new_arr(av);
+    char **arr;
 
+	arr = to_new_arr(av);
 	check_dup(arr);
 	i = 0;
 	while (arr[i])

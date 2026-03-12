@@ -43,8 +43,8 @@ int return_split_len(char **av);
 char	**fill_arr(char **av, char **res);
 char	**to_new_arr(char **av);
 int	ft_strcmp(char *s1, char *s2);
-void	check_dup(char **arr)
-void    parsing(t_point *stack_A, char **av)
+void	check_dup(char **arr);
+void    parsing(t_point *stack_A, char **av);
 
 t_point *l_init(void);
 

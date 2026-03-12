@@ -74,18 +74,9 @@ int main(int ac, char **av)
 
     stack_A = l_init();
     stack_B = l_init();
+    parsing(stack_A, av);
 
-    int i = 0;
-    while (i < ac - 1)
-    {
-        check_int(av[ac - 1 - i]);
-        ft_long_atoi(stack_A, av[ac - 1 - i]);
-        i++;
-    }
-
-
-
-
+    int i;
     
     i = 0;
     t_node *cur = stack_A->top;
