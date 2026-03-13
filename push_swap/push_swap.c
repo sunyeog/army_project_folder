@@ -71,10 +71,10 @@ void    push(t_point *p, int d)
 int main(int ac, char **av)
 {
     t_point *stack_A;
-    //t_point *stack_B;
+    t_point *stack_B;
 
     stack_A = l_init();
-    //stack_B = l_init();
+    stack_B = l_init();
     parsing(stack_A, av);
 
     int i;
@@ -90,7 +90,7 @@ int main(int ac, char **av)
     ft_printf("-----------------------------\n");
    
     size_is_3(stack_A);
-    
+
     i = 0;
     cur = stack_A->top;
     while (i < ac - 1)
@@ -100,7 +100,16 @@ int main(int ac, char **av)
         i++;
     }
     ft_printf("size : %d\n", stack_A->size);
-    
+    rr(stack_A, stack_B);
+    i = 0;
+    cur = stack_A->top;
+    while (i < ac - 1)
+    {
+        ft_printf("%d\n" , cur->data);
+        cur = cur->next;
+        i++;
+    }
+    ft_printf("size : %d\n", stack_A->size);
     
     
     
