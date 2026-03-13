@@ -10,3 +10,13 @@ void    size_is_2(t_point *stack_A)
 }
 
 void    size_is_3(t_point *stack_A)
+{
+    int top;
+    int mid;
+    int bot;
+
+    top = 
+    if ((stack_A -> top -> data > stack_A -> top -> next -> data)
+        && (stack_A -> top -> data > stack_A -> bottom -> data)
+        && (stack_A -> top -> next -> data > stack_A -> bottom -> data))
+}
