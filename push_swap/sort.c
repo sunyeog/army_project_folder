@@ -33,3 +33,4 @@ void    size_is_3(t_point *stack_A)
         sa(stack_A, 1);
 }
 
+int *to_index_arr(char)
