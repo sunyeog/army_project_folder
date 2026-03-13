@@ -71,11 +71,12 @@ void    push(t_point *p, int d)
 int main(int ac, char **av)
 {
     t_point *stack_A;
-    t_point *stack_B;
+    //t_point *stack_B;
 
     stack_A = l_init();
-    stack_B = l_init();
+    //stack_B = l_init();
     parsing(stack_A, av);
+
     int i;
     
     i = 0;
@@ -86,46 +87,22 @@ int main(int ac, char **av)
         cur = cur->next;
         i++;
     }
-    ft_printf("size : %d\n", stack_A->size);
-    pop(stack_A);
-    ft_printf("-------------------\n");
-    i = 0;
-    cur = stack_A->top;
-    while (i < ac - 2)
-    {
-        ft_printf("%d\n" , cur->data);
-        cur = cur->next;
-        i++;
-    }
-    ft_printf("size : %d\n", stack_A->size);
-    pop(stack_A);
-    ft_printf("-------------------\n");
-    i = 0;
-    cur = stack_A->top;
-    while (i < ac - 3)
-    {
-        ft_printf("%d\n" , cur->data);
-        cur = cur->next;
-        i++;
-    }
-    ft_printf("size : %d\n", stack_A->size);
-    ft_printf("top : %d\n", stack_A->top->data);
-    ft_printf("bottom : %d\n", stack_A->bottom->data);
+    ft_printf("-----------------------------\n");
+   
+    size_is_3(stack_A);
     
-    rra(stack_A);
-    sb(stack_B);
-    ft_printf("-------------------\n");
     i = 0;
     cur = stack_A->top;
-    while (i < ac - 3)
+    while (i < ac - 1)
     {
         ft_printf("%d\n" , cur->data);
         cur = cur->next;
         i++;
     }
     ft_printf("size : %d\n", stack_A->size);
-    ft_printf("top : %d\n", stack_A->top->data);
-    ft_printf("bottom : %d\n", stack_A->bottom->data);
+    
+    
+    
     
     return 0;
 }

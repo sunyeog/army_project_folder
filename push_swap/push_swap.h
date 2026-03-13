@@ -45,6 +45,8 @@ char	**to_new_arr(char **av);
 int	ft_strcmp(char *s1, char *s2);
 void	check_dup(char **arr);
 void    parsing(t_point *stack_A, char **av);
+void    size_is_2(t_point *stack_A);
+void    size_is_3(t_point *stack_A);
 
 t_point *l_init(void);
 
