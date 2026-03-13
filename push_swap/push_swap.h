@@ -21,16 +21,16 @@ typedef struct s_point
     int     size;
 } t_point;
 
-void	sa(t_point *stack_A);
-void	sb(t_point *stack_B);
+void	sa(t_point *stack_A, int opt);
+void	sb(t_point *stack_B, int opt);
 void	ss(t_point *stack_A, t_point *stack_B);
 void	pa(t_point *stack_A, t_point *stack_B);
 void	pb(t_point *stack_A, t_point *stack_B);
-void    ra(t_point *stack_A);
-void    rb(t_point *stack_B);
+void    ra(t_point *stack_A, int opt);
+void    rb(t_point *stack_B, int opt);
 void    rr(t_point *stack_A, t_point *stack_B);
-void    rra(t_point *stack_A);
-void    rrb(t_point *stack_B);
+void    rra(t_point *stack_A, int opt);
+void    rrb(t_point *stack_B, int opt);
 void    rrr(t_point *stack_A, t_point *stack_B);
 void    push(t_point *p, int d);
 void    pop(t_point *p);

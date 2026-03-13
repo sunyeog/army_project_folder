@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	sa(t_point *stack_A)
+void	sa(t_point *stack_A, int opt)
 {
     int temp;
 
@@ -21,10 +21,11 @@ void	sa(t_point *stack_A)
     temp = stack_A -> top -> data;
     stack_A -> top -> data = stack_A -> top -> next -> data;
     stack_A -> top -> next -> data = temp;
-    ft_printf("sa\n");
+    if (opt == 1)
+        ft_printf("sa\n");
 }
 
-void	sb(t_point *stack_B)
+void	sb(t_point *stack_B, int opt)
 {
     int temp;
     
@@ -33,13 +34,14 @@ void	sb(t_point *stack_B)
     temp = stack_B -> top -> data;
     stack_B -> top -> data = stack_B -> top -> next -> data;
     stack_B -> top -> next -> data = temp;
-    ft_printf("sb\n");
+    if (opt == 1)
+        ft_printf("sb\n");
 }
 
 void	ss(t_point *stack_A, t_point *stack_B)
 {
-    sa(stack_A);
-    sb(stack_B);
+    sa(stack_A, 0);
+    sb(stack_B, 0);
     ft_printf("ss\n");
 }
 
@@ -61,7 +63,7 @@ void	pb(t_point *stack_A, t_point *stack_B)
     ft_printf("pb\n");
 }
 
-void    ra(t_point *stack_A)
+void    ra(t_point *stack_A, int opt)
 {
     if (stack_A -> size == 0 || stack_A -> size == 1)
         return;
@@ -74,10 +76,11 @@ void    ra(t_point *stack_A)
     stack_A -> bottom = temp;
     stack_A -> bottom -> next = NULL;
     stack_A -> top -> prev = NULL;
-    ft_printf("ra\n");
+    if (opt == 1)
+        ft_printf("ra\n");
 }
 
-void    rb(t_point *stack_B)
+void    rb(t_point *stack_B, int opt)
 {
     if (stack_B -> size == 0 || stack_B -> size == 1)
         return;
@@ -90,17 +93,18 @@ void    rb(t_point *stack_B)
     stack_B -> bottom = temp;
     stack_B -> bottom -> next = NULL;
     stack_B -> top -> prev = NULL;
-    ft_printf("rb\n");
+    if (opt == 1)
+        ft_printf("rb\n");
 }
 
 void    rr(t_point *stack_A, t_point *stack_B) 
 {
-    ra(stack_A);
-    rb(stack_B);
+    ra(stack_A, 0);
+    rb(stack_B, 0);
     ft_printf("rr\n");
 }
 
-void    rra(t_point *stack_A)
+void    rra(t_point *stack_A, int opt)
 {
     if (stack_A -> size == 0 || stack_A -> size == 1)
         return;
@@ -111,10 +115,11 @@ void    rra(t_point *stack_A)
     stack_A -> bottom = stack_A -> bottom -> prev;
     stack_A -> bottom -> next = NULL;
     stack_A -> top -> prev = NULL;
-    ft_printf("rra\n");
+    if (opt == 1)
+        ft_printf("rra\n");
 }
 
-void    rrb(t_point *stack_B)
+void    rrb(t_point *stack_B, int opt)
 {
     if (stack_B -> size == 0 || stack_B -> size == 1)
         return;
@@ -125,12 +130,13 @@ void    rrb(t_point *stack_B)
     stack_B -> bottom = stack_B -> bottom -> prev;
     stack_B -> bottom -> next = NULL;
     stack_B -> top -> prev = NULL;
-    ft_printf("rrb\n");
+    if (opt == 1)
+        ft_printf("rrb\n");
 }
 
 void    rrr(t_point *stack_A, t_point *stack_B)
 {
-    rra(stack_A);
-    rrb(stack_B);
+    rra(stack_A, 0);
+    rrb(stack_B, 0);
     ft_printf("rrr\n");
 }
