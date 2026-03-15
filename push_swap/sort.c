@@ -96,7 +96,6 @@ void    radix_sort(t_point *stack_A, t_point *stack_B)
     {
         sign = 0;
         j = 0;
-        
         while (j < len)
         {
             if (!((stack_A -> top -> data >> i) & 1))
