@@ -62,34 +62,44 @@ void insert_index(t_point *stack_A, int *arr)
     }
 }
 
-int *to_index_arr(t_point *stack_A)
+void to_index_stack(t_point *stack_A)
 {
+    int i;
     int *arr;
+    t_node *cur;
     
+    i = 0;
+    cur = stack_A -> top;
     arr = (int *)malloc(sizeof(int) * stack_A -> size);
     if (arr == NULL)
-        return (NULL);
+        error();
     insert_index(stack_A, arr);
-    
-    return (arr);
+    while (cur != NULL)
+    {
+        cur -> data = arr[i];
+        cur = cur -> next;
+        i++;
+    }
+    free(arr);
 }
 
-void    radix_sort(t_point *stack_A, t_point *stack_B, int *arr)
+void    radix_sort(t_point *stack_A, t_point *stack_B)
 {
     int i;
     int j;
-    int sign;
     int len;
+    int sign;
 
     i = 0;
     len = stack_A -> size;
-    while (i < len)
+    while (i < 32)
     {
-        j = 0;
         sign = 0;
+        j = 0;
+        
         while (j < len)
         {
-            if (!((arr[j] >> i) & 1))
+            if (!((stack_A -> top -> data >> i) & 1))
                 pb(stack_A, stack_B);
             else
             {
