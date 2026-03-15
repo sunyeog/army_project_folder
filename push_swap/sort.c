@@ -74,4 +74,34 @@ int *to_index_arr(t_point *stack_A)
     return (arr);
 }
 
-// void    radix_sort()
+void    radix_sort(t_point *stack_A, t_point *stack_B, int *arr)
+{
+    int i;
+    int j;
+    int sign;
+    int len;
+
+    i = 0;
+    len = stack_A -> size;
+    while (i < len)
+    {
+        j = 0;
+        sign = 0;
+        while (j < len)
+        {
+            if (!((arr[j] >> i) & 1))
+                pb(stack_A, stack_B);
+            else
+            {
+                ra(stack_A, 1);
+                sign++;
+            }
+            j++;
+        }
+        while (stack_B -> top != NULL)
+            pa(stack_A, stack_B);
+        if (sign == 0)
+            return;
+        i++;
+    }
+}
