@@ -90,10 +90,12 @@ int main(int ac, char **av)
     ft_printf("-----------------------------\n");
    
     //size_is_3(stack_A);
+    to_index_stack(stack_A);
     radix_sort(stack_A, stack_B);
+    //chunk_sort(stack_A, stack_B, 5);
 
     // i = 0;
-    // cur = stack_A->top;
+    // cur = stack_B->top;
     // while (i < ac - 1)
     // {
     //     ft_printf("%d\n" , cur->data);

@@ -136,22 +136,19 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
         else
             ra(stack_A, 1);
     }
+
     chunk = size / div;
     range = size % div + chunk;
-    while (range < size)
+    while (range < size + 1)
     {
-        i = 0;
         pb_cnt = 0;
-        while (i < size)
+        while (pb_cnt < chunk)
         {
             if (stack_A -> top -> data < range)
             {
                 pb(stack_A, stack_B);
                 pb_cnt++;
-                i++;
             }
-            else if (pb_cnt == chunk)
-                break;
             else
                 ra(stack_A, 1);
         }

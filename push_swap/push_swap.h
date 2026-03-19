@@ -50,7 +50,7 @@ void    size_is_3(t_point *stack_A);
 void insert_index(t_point *stack_A, int *arr);
 void to_index_stack(t_point *stack_A);
 void    radix_sort(t_point *stack_A, t_point *stack_B);
-
+void    chunk_sort(t_point *stack_A, t_point *stack_B, int div);
 t_point *l_init(void);
 
 #endif
