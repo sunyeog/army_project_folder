@@ -90,6 +90,7 @@ void    radix_sort(t_point *stack_A, t_point *stack_B)
     int len;
     int sign;
 
+    to_index_stack(stack_A);
     i = 0;
     len = stack_A -> size;
     while (i < 32)
@@ -118,17 +119,16 @@ void    radix_sort(t_point *stack_A, t_point *stack_B)
 void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
 {
     int i;
-    int chunk;
-    int range;
     int size;
+    int chunk;
     int pb_cnt;
 
+    to_index_stack(stack_A);
     size = stack_A -> size;
     i = 0;
     while (i < size % div)
     {
-        if (stack_A -> top -> data < size % div &&
-            stack_A -> top -> data >= 0)
+        if (stack_A -> top -> data < size % div)
         {
             pb(stack_A, stack_B);
             i++;
@@ -136,15 +136,15 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
         else
             ra(stack_A, 1);
     }
-
+    i = 0;
+    size = stack_A -> size;
     chunk = size / div;
-    range = size % div + chunk;
-    while (range < size + 1)
+    while (i < div)
     {
         pb_cnt = 0;
-        while (pb_cnt < chunk)
+        while (pb_cnt < (size / div))
         {
-            if (stack_A -> top -> data < range)
+            if (stack_A -> top -> data < chunk)
             {
                 pb(stack_A, stack_B);
                 pb_cnt++;
@@ -152,6 +152,7 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
             else
                 ra(stack_A, 1);
         }
-        range += chunk;
+        chunk += (size / div);
+        i++;
     }
 }

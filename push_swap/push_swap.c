@@ -90,19 +90,18 @@ int main(int ac, char **av)
     ft_printf("-----------------------------\n");
    
     //size_is_3(stack_A);
-    to_index_stack(stack_A);
-    radix_sort(stack_A, stack_B);
-    //chunk_sort(stack_A, stack_B, 5);
+    //radix_sort(stack_A, stack_B);
+    chunk_sort(stack_A, stack_B, 11);
 
-    // i = 0;
-    // cur = stack_B->top;
-    // while (i < ac - 1)
-    // {
-    //     ft_printf("%d\n" , cur->data);
-    //     cur = cur->next;
-    //     i++;
-    // }
-    // ft_printf("size : %d\n", stack_A->size);
+    i = 0;
+    cur = stack_B->top;
+    while (i < ac - 1)
+    {
+        ft_printf("%d\n" , cur->data);
+        cur = cur->next;
+        i++;
+    }
+    ft_printf("size : %d\n", stack_A->size);
     // rr(stack_A, stack_B);
     // i = 0;
     // cur = stack_A->top;
