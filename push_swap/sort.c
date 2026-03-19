@@ -114,3 +114,47 @@ void    radix_sort(t_point *stack_A, t_point *stack_B)
         i++;
     }
 }
+
+void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
+{
+    int i;
+    int chunk;
+    int range;
+    int size;
+    int pb_cnt;
+
+    size = stack_A -> size;
+    i = 0;
+    while (i < size % div)
+    {
+        if (stack_A -> top -> data < size % div &&
+            stack_A -> top -> data >= 0)
+        {
+            pb(stack_A, stack_B);
+            i++;
+        }
+        else
+            ra(stack_A, 1);
+    }
+    chunk = size / div;
+    range = size % div + chunk;
+    while (range < size)
+    {
+        i = 0;
+        pb_cnt = 0;
+        while (i < size)
+        {
+            if (stack_A -> top -> data < range)
+            {
+                pb(stack_A, stack_B);
+                pb_cnt++;
+                i++;
+            }
+            else if (pb_cnt == chunk)
+                break;
+            else
+                ra(stack_A, 1);
+        }
+        range += chunk;
+    }
+}
