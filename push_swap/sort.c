@@ -52,7 +52,7 @@ void insert_index(t_point *stack_A, int *arr)
         mv_cur = stack_A -> top;
         while (mv_cur != NULL)
         {
-            if (stop_cur -> data < mv_cur -> data)
+            if (mv_cur -> data < stop_cur -> data)
                 index++;
             mv_cur = mv_cur -> next;
         }
@@ -135,12 +135,15 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
         }
         else
             ra(stack_A, 1);
+
     }
     i = 0;
     size = stack_A -> size;
-    chunk = size / div;
+    chunk = size / div + size % div;
     while (i < div)
     {
+        if (div > size)
+            break;
         pb_cnt = 0;
         while (pb_cnt < (size / div))
         {
