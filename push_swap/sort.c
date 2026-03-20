@@ -138,8 +138,8 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int chunk)
         ft_printf("error\n");
     }
     i = 0;
+    range = size / chunk + size % chunk;//한 덩어리마다 확인하는 인덱스 범위
     size = stack_A -> size;
-    range = size / chunk + size % chunk; // 한덩어리에 들어가는 수의 최대값
     while (i < chunk)
     {
         if (chunk > size)

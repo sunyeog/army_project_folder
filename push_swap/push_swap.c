@@ -87,6 +87,7 @@ int main(int ac, char **av)
         cur = cur->next;
         i++;
     }
+    ft_printf("size : %d\n", stack_A->size);
     ft_printf("-----------------------------\n");
    
     //size_is_3(stack_A);
@@ -101,7 +102,7 @@ int main(int ac, char **av)
         cur = cur->next;
         i++;
     }
-    ft_printf("size : %d\n", stack_A->size);
+    ft_printf("size : %d\n", stack_B->size);
     // rr(stack_A, stack_B);
     // i = 0;
     // cur = stack_A->top;
