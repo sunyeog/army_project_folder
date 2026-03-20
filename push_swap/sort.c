@@ -116,38 +116,38 @@ void    radix_sort(t_point *stack_A, t_point *stack_B)
     }
 }
 
-void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
+void    chunk_sort(t_point *stack_A, t_point *stack_B, int chunk)
 {
     int i;
     int size;
-    int chunk;
+    int range;
     int pb_cnt;
 
     to_index_stack(stack_A);
     size = stack_A -> size;
     i = 0;
-    while (i < size % div)
+    while (i < size % chunk)
     {
-        if (stack_A -> top -> data < size % div)
+        if (stack_A -> top -> data < size % chunk)
         {
             pb(stack_A, stack_B);
             i++;
         }
         else
             ra(stack_A, 1);
-
+        ft_printf("error\n");
     }
     i = 0;
     size = stack_A -> size;
-    chunk = size / div + size % div;
-    while (i < div)
+    range = size / chunk + size % chunk; // 한덩어리에 들어가는 수의 최대값
+    while (i < chunk)
     {
-        if (div > size)
+        if (chunk > size)
             break;
         pb_cnt = 0;
-        while (pb_cnt < (size / div))
+        while (pb_cnt < (size / chunk))
         {
-            if (stack_A -> top -> data < chunk)
+            if (stack_A -> top -> data < range)
             {
                 pb(stack_A, stack_B);
                 pb_cnt++;
@@ -155,7 +155,7 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int div)
             else
                 ra(stack_A, 1);
         }
-        chunk += (size / div);
+        range += (size / chunk);
         i++;
     }
 }
