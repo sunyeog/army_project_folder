@@ -91,7 +91,7 @@ int main(int ac, char **av)
     ft_printf("-----------------------------\n");
    
     //size_is_3(stack_A);
-    //radix_sort(stack_A, stack_B);
+    //radix_sort(stack_A, stack_B);;
     if (stack_A -> size <= 100)
         chunk_sort(stack_A, stack_B, 5);
     else if (stack_A -> size <= 250)
