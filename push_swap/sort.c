@@ -121,7 +121,6 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int chunk)
     int i;
     int size;
     int range;
-    int pb_cnt;
 
     to_index_stack(stack_A);
     size = stack_A -> size;
@@ -135,9 +134,9 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int chunk)
         }
         else
             ra(stack_A, 1);
-        ft_printf("error\n");
     }
     i = 0;
+    int pb_cnt;
     range = size / chunk + size % chunk;//한 덩어리마다 확인하는 인덱스 범위
     size = stack_A -> size;
     while (i < chunk)
@@ -157,5 +156,27 @@ void    chunk_sort(t_point *stack_A, t_point *stack_B, int chunk)
         }
         range += (size / chunk);
         i++;
+    }
+
+    t_node *cur;
+    int loc;
+    while (stack_B -> top != NULL)
+    {
+        loc = 0;
+        size = stack_B -> size;
+        cur = stack_B -> top;
+        while (cur -> data != size - 1)
+        {
+            loc++;
+            cur = cur -> next;
+        }
+        while (stack_B -> top -> data != size - 1)
+        {
+            if (loc > (size / 2))
+                rrb(stack_B, 1);
+            else
+                rb(stack_B, 1);
+        }
+        pa(stack_A,stack_B);
     }
 }

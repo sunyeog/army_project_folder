@@ -92,17 +92,21 @@ int main(int ac, char **av)
    
     //size_is_3(stack_A);
     //radix_sort(stack_A, stack_B);
-    chunk_sort(stack_A, stack_B, 11);
-
-    i = 0;
-    cur = stack_B->top;
-    while (i < ac - 1)
-    {
-        ft_printf("%d\n" , cur->data);
-        cur = cur->next;
-        i++;
-    }
-    ft_printf("size : %d\n", stack_B->size);
+    if (stack_A -> size <= 100)
+        chunk_sort(stack_A, stack_B, 5);
+    else if (stack_A -> size <= 250)
+        chunk_sort(stack_A, stack_B, 10);
+    else
+        chunk_sort(stack_A, stack_B, 14);
+    // i = 0;
+    // cur = stack_B->top;
+    // while (i < ac - 1)
+    // {
+    //     ft_printf("%d\n" , cur->data);
+    //     cur = cur->next;
+    //     i++;
+    // }
+    // ft_printf("size : %d\n", stack_B->size);
     // rr(stack_A, stack_B);
     // i = 0;
     // cur = stack_A->top;
