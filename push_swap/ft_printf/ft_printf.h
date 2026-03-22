@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdio.h>
+
 void	ft_putchar(const char a);
 void	ft_putstr(char *c);
 int		ft_printf(const char *str, ...);

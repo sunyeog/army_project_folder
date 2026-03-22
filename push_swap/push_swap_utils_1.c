@@ -14,10 +14,10 @@
 
 void	sa(t_point *stack_A, int opt)
 {
-	int temp;
+	int	temp;
 
 	if (stack_A -> size < 2)
-		return;
+		return ;
 	temp = stack_A -> top -> data;
 	stack_A -> top -> data = stack_A -> top -> next -> data;
 	stack_A -> top -> next -> data = temp;
@@ -27,10 +27,10 @@ void	sa(t_point *stack_A, int opt)
 
 void	sb(t_point *stack_B, int opt)
 {
-	int temp;
+	int	temp;
 
 	if (stack_B -> size < 2)
-		return;
+		return ;
 	temp = stack_B -> top -> data;
 	stack_B -> top -> data = stack_B -> top -> next -> data;
 	stack_B -> top -> next -> data = temp;

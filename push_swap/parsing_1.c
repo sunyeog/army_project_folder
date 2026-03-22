@@ -42,6 +42,7 @@ int	return_split_len(char **av)
 	len = 0;
 	while (av[i])
 	{
+		res = ft_split(av[i], ' ');
 		j = 0;
 		while (res[j])
 		{

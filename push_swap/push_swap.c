@@ -71,12 +71,10 @@ int	main(int ac, char **av)
 {
 	t_point	*stack_a;
 	t_point	*stack_b;
-	t_node	*cur;
 
 	stack_a = l_init();
 	stack_b = l_init();
 	parsing(stack_a, av);
-	cur = stack_a->top;
 	if (stack_a -> size == 2)
 		size_is_2(stack_a);
 	else if (stack_a -> size == 3)
@@ -87,5 +85,7 @@ int	main(int ac, char **av)
 		chunk_sort(stack_a, stack_b, 10);
 	else
 		chunk_sort(stack_a, stack_b, 14);
+	if (ac == 0)
+		return (0);
 	return (0);
 }
