@@ -83,9 +83,12 @@ int	main(int ac, char **av)
 		chunk_sort(stack_a, stack_b, 5);
 	else if (stack_a -> size <= 250)
 		chunk_sort(stack_a, stack_b, 10);
-	else
+	else if (stack_a -> size > 250)
 		chunk_sort(stack_a, stack_b, 14);
-	if (ac == 0)
-		return (0);
+	while (stack_a -> top != NULL)
+		pop(stack_a);
+	free(stack_a);
+	free(stack_b);
+	(void)ac;
 	return (0);
 }
