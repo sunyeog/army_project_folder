@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:36:49 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/03/25 13:36:50 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/03/25 13:48:29 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_point	*l_init(void)
 	t_point	*p;
 
 	p = (t_point *)malloc(sizeof(t_point));
+	if (p == NULL)
+		error();
 	p -> top = NULL;
 	p -> bottom = NULL;
 	p->size = 0;
@@ -49,6 +51,8 @@ void	push(t_point *p, int d)
 	t_node	*new;
 
 	new = (t_node *)malloc(sizeof(t_node));
+	if (new == NULL)
+		error();
 	if (p -> size == 0)
 	{
 		new -> data = d;

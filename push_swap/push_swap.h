@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:37:09 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/03/25 13:37:12 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/03/25 13:42:03 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	size_is_2(t_point *stack_A);
 void	size_is_3(t_point *stack_A);
 void	insert_index(t_point *stack_A, int *arr);
 void	to_index_stack(t_point *stack_A);
-void	radix_sort(t_point *stack_A, t_point *stack_B);
 void	chunk_sort(t_point *stack_A, t_point *stack_B, int div);
 t_point	*l_init(void);
 
