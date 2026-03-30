@@ -19,6 +19,8 @@ void	check_int(char av[])
 	i = 1;
 	if (!((av[0] >= '0' && av[0] <= '9') || av[0] == '+' || av[0] == '-'))
 		error();
+	if ((av[0] == '+' || av[0] == '-') && av[1] == '\0')
+		error();
 	while (av[i])
 	{
 		if (!(av[i] >= '0' && av[i] <= '9'))

@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:36:49 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/03/25 13:48:29 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/03/30 14:09:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,14 @@ int	main(int ac, char **av)
 		size_is_2(stack_a);
 	else if (stack_a -> size == 3)
 		size_is_3(stack_a);
-	else if (stack_a -> size <= 100)
+	else if (stack_a -> size >= 4 && stack_a -> size <= 100)
 		chunk_sort(stack_a, stack_b, 5);
-	else if (stack_a -> size <= 250)
+	else if (stack_a -> size >= 4 && stack_a -> size <= 250)
 		chunk_sort(stack_a, stack_b, 10);
-	else if (stack_a -> size > 250)
+	else if (stack_a -> size >= 4 && stack_a -> size > 250)
 		chunk_sort(stack_a, stack_b, 14);
+	else
+		return (0);
 	while (stack_a -> top != NULL)
 		pop(stack_a);
 	free(stack_a);
