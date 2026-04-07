@@ -6,9 +6,11 @@
 /*   By: codespace <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 11:25:00 by codespace         #+#    #+#             */
-/*   Updated: 2026/04/06 14:09:24 by codespace        ###   ########.fr       */
+/*   Updated: 2026/04/07 14:49:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minitalk.h"
 
 void send_sig(pid_t pid, char c)
 {
@@ -31,6 +33,8 @@ int main(int ac, char **av)
 	int	i;
 	pid_t pid;
 
+	if (ac != 3)
+		return (1);
 	i = 0;
 	pid = ft_atoi(av[1]);
 	while (av[2][i])
