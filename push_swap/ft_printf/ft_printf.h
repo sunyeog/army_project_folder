@@ -20,7 +20,7 @@
 void	ft_putchar(const char a);
 void	ft_putstr(char *c);
 int		ft_printf(const char *str, ...);
-int		ft_strlen(char *c);
+size_t	ft_strlen(const char *c);
 int		type_c(va_list *ap);
 int		type_s(va_list *ap);
 int		type_p(va_list *ap);

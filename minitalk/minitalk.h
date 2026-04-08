@@ -6,7 +6,7 @@
 /*   By: codespace <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:26:23 by codespace         #+#    #+#             */
-/*   Updated: 2026/04/07 13:29:19 by codespace        ###   ########.fr       */
+/*   Updated: 2026/04/08 03:03:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 # define MINITALK_H
 
 # include <signal.h>
+# include "libft/libft.h"
+
+
 
 #endif
