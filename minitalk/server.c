@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/05 13:36:53 by codespace         #+#    #+#             */
-/*   Updated: 2026/04/07 14:23:10 by sunhnoh          ###   ########.fr       */
+/*   Created: 2026/04/08 03:42:07 by sunhnoh           #+#    #+#             */
+/*   Updated: 2026/04/08 03:42:09 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int main()
 	sa.sa_handler = combine_char;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
-	sigaction(SIGUSR1,&sa,NULL);
-	sigaction(SIGUSR2,&sa,NULL);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause() ;
 	return (0);

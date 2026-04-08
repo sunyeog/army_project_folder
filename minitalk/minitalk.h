@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/07 13:26:23 by codespace         #+#    #+#             */
-/*   Updated: 2026/04/08 03:03:20 by codespace        ###   ########.fr       */
+/*   Created: 2026/04/08 03:42:19 by sunhnoh           #+#    #+#             */
+/*   Updated: 2026/04/08 03:42:21 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINITALK_H
 
 # include <signal.h>
-# include "libft/libft.h"
+# include "ft_printf/ft_printf.h"
 
 
 
