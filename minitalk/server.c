@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 03:42:07 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/08 03:42:09 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/04/08 13:40:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void combine_char(int sig)
 	i++;
 	if (i == 8)
 	{
-		write(1, &c, 1);
+		if (c == 0)
+			write(1, "\n", 1);
+		else
+			write(1, &c, 1);
 		i = 0;
 		c = 0;
 	}

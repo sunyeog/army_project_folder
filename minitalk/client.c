@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 03:41:34 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/08 03:41:39 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/04/08 13:31:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void send_sig(pid_t pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep (100);
+		usleep (1000);
 		i++;
 	}
 }
