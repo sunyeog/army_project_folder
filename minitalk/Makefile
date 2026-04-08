@@ -10,15 +10,20 @@ PRINT = ./ft_printf
 PRINTA = libftprintf.a
 
 
-all: ${NAME}
+all: ${NAME1} ${NAME2}
 
-${NAME} : $(OBJ)
+$(PRINT)/$(PRINTA):
 	make -C $(PRINT)
+
+${NAME1} : $(OBJ1) $(PRINT)/$(PRINTA)
 	$(CC) $(FLAG) -I./ $(SRC1) -o $(NAME1)  $(PRINT)/$(PRINTA)
+
+${NAME2} : $(OBJ2) $(PRINT)/$(PRINTA)
 	$(CC) $(FLAG) -I./ $(SRC2) -o $(NAME2)  $(PRINT)/$(PRINTA)
 
 clean :
-	/bin/rm -f $(OBJ)
+	/bin/rm -f $(OBJ1)
+	/bin/rm -f $(OBJ2)
 fclean : clean
 	/bin/rm -f $(NAME1)
 	/bin/rm -f $(NAME2)

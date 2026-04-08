@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
+/*   By: sunhnoh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/08 03:42:19 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/08 03:42:21 by sunhnoh          ###   ########.fr       */
+/*   Created: 2024/03/01 00:19:08 by sunhnoh           #+#    #+#             */
+/*   Updated: 2024/03/23 07:43:14 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "ft_printf/ft_printf.h"
-
-#endif
+int	ft_isalnum(int c)
+{
+	if (c >= 65 && c <= 90)
+		return (1);
+	else if (c >= 97 && c <= 122)
+		return (2);
+	else if (c >= '0' && c <= '9')
+		return (4);
+	else
+		return (0);
+}
