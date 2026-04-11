@@ -36,9 +36,9 @@ int main()
 	struct sigaction sa;
 
 	ft_printf("%d\n", getpid());
-	sa.sa_handler = combine_char;
-	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
+	sa.sa_sigaction = combine_char;
+	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
