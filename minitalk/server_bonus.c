@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-void combine_char(int sig)
+void combine_char(int sig, siginfo_t *info, void *x)
 {
 	static int i;
 	static char c;

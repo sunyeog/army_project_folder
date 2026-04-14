@@ -23,7 +23,7 @@ void send_sig(pid_t pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep (1000);
+		
 		i++;
 	}
 }
