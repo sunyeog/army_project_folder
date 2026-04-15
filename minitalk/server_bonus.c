@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:06:17 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/12 13:06:30 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/04/15 14:15:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void combine_char(int sig, siginfo_t *info, void *x)
 	if (sig == SIGUSR1)
 		c |= (1 << i);
 	i++;
+	kill(info -> si_pid, SIGUSR1)
 	if (i == 8)
 	{
 		if (c == 0)
