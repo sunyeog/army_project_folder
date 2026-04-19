@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:06:24 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/19 11:20:09 by codespace        ###   ########.fr       */
+/*   Updated: 2026/04/19 13:05:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int main(int ac, char **av)
 	pid_t pid;
 	struct sigaction sa;
 
+	//ft_printf("%d\n", getpid());
 	if (ac != 3)
 		return (1);
 	sa.sa_handler = nothing;
