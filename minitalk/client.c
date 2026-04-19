@@ -39,7 +39,6 @@ int main(int ac, char **av)
 	pid_t pid;
 	struct sigaction sa;
 
-	//ft_printf("%d\n", getpid());
 	if (ac != 3)
 		return (1);
 	sa.sa_handler = nothing;

@@ -30,7 +30,6 @@ void combine_char(int sig, siginfo_t *info, void *x)
 		i = 0;
 		c = 0;
 	}
-	//ft_printf("%d\n", info -> si_pid);
 	usleep(500);
 	kill(info -> si_pid, SIGUSR1);
 }
