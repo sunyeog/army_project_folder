@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_bonus.c                                     :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 13:06:17 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/15 14:15:51 by codespace        ###   ########.fr       */
+/*   Created: 2026/04/08 03:42:07 by sunhnoh           #+#    #+#             */
+/*   Updated: 2026/04/08 13:40:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void combine_char(int sig, siginfo_t *info, void *x)
+void combine_char(int sig)
 {
 	static int i;
 	static char c;
@@ -20,7 +20,6 @@ void combine_char(int sig, siginfo_t *info, void *x)
 	if (sig == SIGUSR1)
 		c |= (1 << i);
 	i++;
-	kill(info -> si_pid, SIGUSR1)
 	if (i == 8)
 	{
 		if (c == 0)
@@ -37,9 +36,9 @@ int main()
 	struct sigaction sa;
 
 	ft_printf("%d\n", getpid());
-	sa.sa_flags = 0;
-	sa.sa_sigaction = combine_char;
+	sa.sa_handler = combine_char;
 	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
