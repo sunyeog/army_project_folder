@@ -2,6 +2,8 @@ CC = cc
 FLAG = -Werror -Wextra -Wall 
 SRC1 = server.c
 SRC2 = client.c
+BON1 = server_bonus.c
+BON2 = client_bonus.c
 OBJ1 = $(SRC1:.c=.o)
 OBJ2 = $(SRC2:.c=.o)
 NAME1 = server
