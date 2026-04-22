@@ -2,12 +2,13 @@ CC = cc
 FLAG = -Werror -Wextra -Wall 
 SRC1 = server.c
 SRC2 = client.c
-# BON1 = server_bonus.c
-# BON2 = client_bonus.c
+BON1 = server_bonus.c
+BON2 = client_bonus.c
 OBJ1 = $(SRC1:.c=.o)
 OBJ2 = $(SRC2:.c=.o)
 NAME1 = server
 NAME2 = client
+NAME3 = server_bonu
 LIBA = ./libft
 LIBAA = libft.a
 PRINT = ./ft_printf
@@ -15,6 +16,8 @@ PRINTA = libftprintf.a
 
 
 all: ${NAME1} ${NAME2}
+
+bonus: ${NAME3} ${NAME4}
 
 $(PRINT)/$(PRINTA):
 	make -C $(PRINT)
