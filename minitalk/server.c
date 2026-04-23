@@ -5,19 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/12 13:06:17 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/19 11:41:19 by codespace        ###   ########.fr       */
+/*   Created: 2026/04/08 03:42:07 by sunhnoh           #+#    #+#             */
+/*   Updated: 2026/04/23 13:32:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void combine_char(int sig, siginfo_t *info, void *x)
+void	combine_char(int sig)
 {
-	static int i;
-	static char c;
+	static int	i;
+	static char	c;
 
-	(void)x;
 	if (sig == SIGUSR1)
 		c |= (1 << i);
 	i++;
@@ -30,21 +29,19 @@ void combine_char(int sig, siginfo_t *info, void *x)
 		i = 0;
 		c = 0;
 	}
-	usleep(500);
-	kill(info -> si_pid, SIGUSR1);
 }
 
-int main()
+int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	ft_printf("%d\n", getpid());
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = combine_char;
+	sa.sa_handler = combine_char;
 	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-		pause() ;
+		pause();
 	return (0);
 }
