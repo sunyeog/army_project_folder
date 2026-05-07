@@ -5,5 +5,5 @@ a.append(y)
 a.remove('def456')
 
 print(a[1][-3:], a[2][:-3], sep = ',')
-for i int range(3, 6):
+for i in range(3, 6):
     print(i, end = ' ')
