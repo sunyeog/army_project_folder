@@ -1,0 +1,1 @@
+CREATE schema hello AUTHORIZATION hi
