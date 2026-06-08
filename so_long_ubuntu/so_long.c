@@ -344,4 +344,3 @@ int	main(int ac, char **av)
 	close(fd);
 	return (0);
 }
-1
