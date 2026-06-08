@@ -1,0 +1,120 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solong.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunhnoh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 14:50:31 by sunhnoh           #+#    #+#             */
+/*   Updated: 2024/11/12 18:16:20 by sunhnoh          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+
+void	print_map(char **t, void *temp, void *win)
+{
+	int	i = 0;
+	int j = 0;
+	int r;
+	int	c;
+	f_str s1;
+
+	while (t[i])
+	{
+		j = 0;
+		while (t[i][j])
+		{
+			if(t[i][j] == '0')
+			{
+				s1.zero = mlx_xpm_file_to_image(temp, "./empty_space.xpm",&r, &c);
+				mlx_put_image_to_window(temp, win, s1.zero, j * 64, i * 64);
+			}
+			else if(t[i][j] == '1')
+			{
+				s1.one = mlx_xpm_file_to_image(temp, "./wall.xpm",&r, &c);
+				mlx_put_image_to_window(temp, win, s1.one, j * 64, i * 64);
+			}
+			else if(t[i][j] == 'C')
+			{
+				s1.c = mlx_xpm_file_to_image(temp, "./collectible.xpm",&r, &c);
+				mlx_put_image_to_window(temp, win, s1.c, j * 64, i * 64);
+			}
+			else if(t[i][j] == 'E')
+			{
+				s1.e = mlx_xpm_file_to_image(temp, "./exit.xpm",&r, &c);
+				mlx_put_image_to_window(temp, win, s1.e, j * 64, i * 64);
+			}
+			else if(t[i][j] == 'P')
+			{
+				s1.p = mlx_xpm_file_to_image(temp, "./frisk.xpm",&r, &c);
+				mlx_put_image_to_window(temp, win, s1.p, j * 64, i * 64);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+void	swap(char *a, char *b)
+{
+	char	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+int	key_control(int keycode, char **t, void *temp, void *win)
+{
+	if (keycode == 53)
+		exit(0);
+	else if(keycode == 126)
+	{
+		swap(&t[3][4], &t[2][4]);
+		print_map(t,temp,win);
+	}
+	printf("%d\n", keycode);
+	return (0);
+}
+
+int	exit_func(void *param)
+{
+	(void)param;
+	exit(0);
+}
+
+
+
+int main(int ac, char **av)
+{
+	int	fd;
+	char *ttt;
+	char *tt;
+	char **t;
+	void *win;
+	void *temp;
+	char *name;
+
+	fd = open(av[1], O_RDONLY);
+	ttt = get_next_line(fd);
+	tt = malloc(sizeof(char) * 1);
+	tt[0] = '\0';
+	while (ttt != NULL)
+	{
+		tt = ft_strjoin(tt, ttt);
+		ttt = get_next_line(fd);
+	}
+
+	
+	temp = mlx_init();
+	win = mlx_new_window(temp, 600, 600, "start");
+
+	t = ft_split(tt, '\n');
+	print_map(t,temp,win);
+	
+	mlx_key_hook(win, key_control, NULL);
+	mlx_hook(win, 17, 0, exit_func, NULL);
+	mlx_loop(temp);
+	return (0);
+}
