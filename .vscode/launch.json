@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/nosunhyeog/army_project_folder/so_long_ubuntu",
+      "program": "/Users/nosunhyeog/army_project_folder/so_long_ubuntu/build/Debug/outDebug"
+    }
+  ]
+}
