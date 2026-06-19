@@ -6,7 +6,7 @@
 /*   By: sunhnoh <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:50:10 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/10 03:08:34 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/06 14:32:57 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@
 
 typedef struct f_struct
 {
-	
+	void	*zero;
+	void	*one;
+	void	*c;
+	void	*e;
+	void	*p;
 }	t_str;
 
 typedef struct f_game
