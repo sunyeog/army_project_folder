@@ -29,7 +29,9 @@ void	print_map(char **t, void *temp, void *win)
 			if (t[i][j] == '0')
 			{
 				s1.zero = mlx_xpm_file_to_image(temp, "./empty_space.xpm", &r, &c);
+				// xpm파일을 이미지로 로드. 반환값은 이미지 포인터.(mlx인스턴스, 이미지파일 경로, 너비[알아서 생성], 높이[알아서 생성])
 				mlx_put_image_to_window(temp, win, s1.zero, j * 64, i * 64);
+				// 이미지를 윈도우의 특정 좌표에 그림. (mlx인스턴스, 윈도우, 그릴 이미지 포인터, x좌표, y좌표)
 			}
 			else if (t[i][j] == '1')
 			{
@@ -57,7 +59,7 @@ void	print_map(char **t, void *temp, void *win)
 	}
 }
 
-int	check_wall(t_game *game, int num)
+int	check_wall(t_game *game, int num)//이동하려는 칸이1이면 에러반환
 {
 	if (num == 65362)
 	{
@@ -82,7 +84,7 @@ int	check_wall(t_game *game, int num)
 	return (1);
 }
 
-int	map_check(t_game *game)
+int	map_check(t_game *game) //실시간 맵 확인. 승리조건 달성시 ok출력 후 종료.
 {
 	int	i;
 	int	j;
@@ -279,6 +281,19 @@ void	start_map_check(t_game *game)
 	}
 }
 
+void    split_free(char **arr)
+{
+        int     i;
+
+        i = 0;
+        while (arr[i])
+        {
+                free(arr[i]);
+                i++;
+        }
+        free(arr);
+}
+
 int	main(int ac, char **av)
 {
 	int		fd;
@@ -297,26 +312,35 @@ int	main(int ac, char **av)
 		ft_printf("this file there isn't this directory\n");
 		return (0);
 	}
-	ttt = get_next_line(fd);
+	ttt = get_next_line(fd); // 
 	tt = malloc(sizeof(char) * 1);
 	tt[0] = '\0';
+
 	while (ttt != NULL)
 	{
 		tt = ft_strjoin(tt, ttt);
+		free(ttt);
 		ttt = get_next_line(fd);
 	}
+
 	game.map = ft_split(tt, '\n');
+	split_free(tt);
 	find_start_point(&game);
 	game.w = find_width(&game);
 	game.h = find_height(&game);
 	start_map_check(&game);
 	rect_check(&game);
 	game.print_cnt = 0;
-	game.temp = mlx_init();
+	game.temp = mlx_init(); // mlx초기화, 일종의 mlx시작버튼
 	game.win = mlx_new_window(game.temp, 64 * game.w, 64 * game.h, "start");
+	// 윈도우 생성후 윈도우 포인터 반환(mlx인스턴스, 너비, 높이, 창 제목)
 	print_map(game.map, game.temp, game.win);
 	mlx_key_hook(game.win, &key_control, &game);
+	// 키보드 입력 이벤트 등록.(윈도우, 키 눌렸을 때 호출할 함수, 그 함수의 매개변수) 
 	mlx_hook(game.win, 17, 0, &exit_func, NULL);
+	// 특정 위도우 이벤트에 함수등록.(이벤트 받을 윈도우,이벤트 번호,마스크?, 호출될 함수, 넘겨줄 파라미터)
 	mlx_loop(game.temp);
+	// 키 입력, 이벤트 등을 기다림
+	close(fd);
 	return (0);
 }

@@ -45,4 +45,7 @@ typedef struct f_game
 	int		cnt_p;
 }	t_game;
 
+int	open_file(char **av)
+
+
 #endif
