@@ -32,6 +32,11 @@ void	mk_map_arr(int fd, t_game *game)
 
 	tmp_arr = get_next_line(fd);
 	res_arr = malloc(sizeof(char) * 1);
+	if (res_arr == 0)
+	{
+		ft_printf("error\nmalloc_error\n");
+		exit(1);
+	}
 	res_arr[0] = '\0';
 
 	while (tmp_arr != NULL)

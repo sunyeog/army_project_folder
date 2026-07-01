@@ -265,6 +265,7 @@ int	main(int ac, char **av)
 	int		fd;
 	t_game	game;
 	
+	check_av(ac, av);
 	fd = open_file(av);
 	mk_map_arr(fd, &game);
 
@@ -286,3 +287,4 @@ int	main(int ac, char **av)
 	// 키 입력, 이벤트 등을 기다림
 	close(fd);
 	return (0);
+}
