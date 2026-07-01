@@ -43,6 +43,11 @@ void	mk_map_arr(int fd, t_game *game)
 	{
 		res_arr = ft_strjoin(res_arr, tmp_arr);
 		free(tmp_arr);
+		if (res_arr == NULL)
+		{
+    		ft_printf("Error\nmalloc_error\n");
+    		exit(1);
+		}
 		tmp_arr = get_next_line(fd);
 	}
 	game -> map = ft_split(res_arr, '\n');
@@ -76,8 +81,8 @@ void	start_map_check(t_game *game)
 	if (game -> cnt_e != 1 || game -> cnt_p != 1 || game -> cnt_c == 0
 		|| game -> w < 3 || game -> h < 3)
 	{
-		ft_printf("map error\n");
-		exit(0);
+		ft_printf("error\nmap_error\n");
+		exit(1);
 	}
 }
 
