@@ -45,7 +45,11 @@ typedef struct f_game
 	int		cnt_p;
 }	t_game;
 
-int	open_file(char **av)
+int	open_file(char **av);
+void	mk_map_arr(int fd, t_game *game);
+void	start_map_check(t_game *game);
+int	check_extension(char *av);
+void	check_av(int ac, char **av);
 
 
 #endif
