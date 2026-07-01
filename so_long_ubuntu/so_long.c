@@ -202,16 +202,10 @@ int	find_width(t_game *game)
 int	find_height(t_game *game)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (game -> map[i] != NULL)
-	{
-		j = 0;
-		while (game -> map[i][j] != '\0')
-			j++;
 		i++;
-	}
 	return (i);
 }
 
