@@ -30,3 +30,14 @@ void	start_map_check(t_game *game)
 		exit(1);
 	}
 }
+
+int	dfs(char **u, char **d, char **l, char **r, char **p)
+{
+	if (p == 'C' || p == '1')
+		return(0);
+	if (p == 'E')
+		return (1);
+	if (dfs(u, d, l, r, p) == 1)
+		return (1);
+	if
+}
