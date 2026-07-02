@@ -53,7 +53,7 @@ void	mk_map_arr(int fd, t_game *game)
 	game -> map = ft_split(res_arr, '\n');
 	if (game -> map == NULL || game -> map[0] == NULL)
 	{
-		ft_printf("error\nblank_error\n");
+		ft_printf("error\nblank_or_segfault_error\n");
 		exit(1);
 	}
 	free(res_arr);
@@ -83,8 +83,7 @@ void	start_map_check(t_game *game)
 		}
 		i++;
 	}
-	if (game -> cnt_e != 1 || game -> cnt_p != 1 || game -> cnt_c == 0
-		|| (game -> w < 3 && game -> h < 5) || (game -> w < 5 && game -> h < 3))
+	if (game -> cnt_e != 1 || game -> cnt_p != 1 || game -> cnt_c == 0)
 	{
 		ft_printf("error\nmap_error\n");
 		exit(1);
