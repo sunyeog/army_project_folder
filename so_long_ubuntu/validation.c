@@ -37,7 +37,12 @@ int	dfs(char **u, char **d, char **l, char **r, char **p)
 		return(0);
 	if (p == 'E')
 		return (1);
-	if (dfs(u, d, l, r, p) == 1)
+	if (dfs(u + 1, d, l, r, p) == 1)
 		return (1);
-	if
+	if (dfs(u, d + 1, l, r, p) == 1)
+		return (1);
+	if (dfs(u, d, l + 1, r, p) == 1)
+		return (1);
+	if (dfs(, d, l, r, p + 1) == 1)
+		return (1);
 }
