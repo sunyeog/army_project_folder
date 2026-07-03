@@ -31,18 +31,36 @@ void	start_map_check(t_game *game)
 	}
 }
 
-int	dfs(char **u, char **d, char **l, char **r, char **p)
+int	dfs(char **p, t_game *game, int case)
 {
-	if (p == 'C' || p == '1')
+	if (case == 1 && p[game -> row][game -> col] == '1')
+	{
+		game -> row++;
 		return(0);
+	}
+	if (case == 2 && p[game -> row][game -> col] == '1')
+	{
+		game -> row--;
+		return(0);
+	}
+	if (case == 3 && p[game -> row][game -> col] == '1')
+	{
+		game -> col++;
+		return(0);
+	}
+	if (case == 4 && p[game -> row][game -> col] == '1')
+	{
+		game -> col--;
+		return(0);
+	}
 	if (p == 'E')
 		return (1);
-	if (dfs(u + 1, d, l, r, p) == 1)
+	if (dfs(p[game -> row - 1][game -> col]) == 1)
 		return (1);
-	if (dfs(u, d + 1, l, r, p) == 1)
+	if (dfs(p[game -> row + 1][game -> col]) == 1)
 		return (1);
-	if (dfs(u, d, l + 1, r, p) == 1)
+	if (dfs(p[game -> row][game -> col - 1]) == 1)
 		return (1);
-	if (dfs(, d, l, r, p + 1) == 1)
+	if (dfs(p[game -> row][game -> col + 1]) == 1)
 		return (1);
 }
