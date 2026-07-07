@@ -33,6 +33,7 @@ typedef struct f_struct
 typedef struct f_game
 {
 	char	**map;
+	char	**test_map;
 	int		row;
 	int		col;
 	int		w;

@@ -25,42 +25,39 @@ void	start_map_check(t_game *game)
 		i++;
 	}
 	if (game -> cnt_e != 1 || game -> cnt_p != 1 || game -> cnt_c == 0)
-	{
-		ft_printf("error\nmap_error\n");
-		exit(1);
-	}
+		error(4);
 }
 
-int	dfs(char **p, t_game *game, int case)
+char **cp_map(char **map, int size)
 {
-	if ((case == 1) && p[game -> row][game -> col] == '1')
+	int	i;
+	char	**dup_map;
+
+	i = 0;
+	dup_map = (char**)malloc(sizeof(char *) * (size + 1));
+	if (dup_map == NULL)
+		error(3);
+	ft_bzero(dup_map, sizeof(char *) * (size + 1));
+	while (i < size)
 	{
-		game -> row++;
-		return(0);
+		dup_map[i] = ft_strdup(map[i]);
+		if (dup_map[i] == NULL)
+		{
+			split_free(dup_map);
+			error(3);
+		}	
+		i++;
 	}
-	if (case == 2 && p[game -> row][game -> col] == '1')
-	{
-		game -> row--;
-		return(0);
-	}
-	if (case == 3 && p[game -> row][game -> col] == '1')
-	{
-		game -> col++;
-		return(0);
-	}
-	if (case == 4 && p[game -> row][game -> col] == '1')
-	{
-		game -> col--;
-		return(0);
-	}
-	if (p == 'E')
-		return (1);
-	if (dfs(p[game -> row - 1][game -> col]) == 1)
-		return (1);
-	if (dfs(p[game -> row + 1][game -> col]) == 1)
-		return (1);
-	if (dfs(p[game -> row][game -> col - 1]) == 1)
-		return (1);
-	if (dfs(p[game -> row][game -> col + 1]) == 1)
-		return (1);
+	dup_map[i] = NULL;
+	return (dup_map);
+}
+
+int	dfs(char **map, t_game *game, int row, int col)
+{
+	if (map[row][col] == '1')
+		return (0);
+	dfs(map, game, row - 1, col);
+	dfs(map, game, row + 1, col);
+	dfs(map, game, row, col - 1);
+	dfs(map, game, row, col + 1);
 }

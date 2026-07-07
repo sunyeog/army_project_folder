@@ -222,10 +222,7 @@ void	rect_check(t_game *game)
 		s_len = ft_strlen(game -> map[i]);
 		if (s_len != len || game -> map[i][0] != '1' ||
 				game -> map[i][len - 1] != '1')
-		{
-			ft_printf("it's not rectangular.\n");
-			exit(1);
-		}
+			error(1);
 		i++;
 	}
 	s_len = i;
@@ -233,10 +230,7 @@ void	rect_check(t_game *game)
 	while (i < len)
 	{
 		if (game -> map[0][i] != '1' || game -> map[s_len - 1][i] != '1')
-		{
-			ft_printf("it's not rectangular.\n");
-			exit(1);
-		}
+			error(1);
 		i++;
 	}
 }
