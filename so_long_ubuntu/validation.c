@@ -33,7 +33,7 @@ void	start_map_check(t_game *game)
 
 int	dfs(char **p, t_game *game, int case)
 {
-	if (case == 1 && p[game -> row][game -> col] == '1')
+	if ((case == 1) && p[game -> row][game -> col] == '1')
 	{
 		game -> row++;
 		return(0);
