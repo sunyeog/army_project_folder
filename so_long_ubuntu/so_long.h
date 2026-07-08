@@ -21,15 +21,6 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-typedef struct f_struct
-{
-	void	*zero;
-	void	*one;
-	void	*c;
-	void	*e;
-	void	*p;
-}	t_str;
-
 typedef struct f_game
 {
 	char	**map;
@@ -37,14 +28,20 @@ typedef struct f_game
 	int		col;
 	int		w;
 	int		h;
-	void	*temp;
+	void	*mlx;
 	void	*win;
 	int		print_cnt;
 	int		cnt_e;
 	int		cnt_c;
 	int		cnt_p;
+	void	*road;
+	void	*wall;
+	void	*c;
+	void	*e;
+	void	*p;
 }	t_game;
 
+void	*end_game(t_game *game);
 void    split_free(char **arr);
 
 void	error(int num);

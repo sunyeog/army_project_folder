@@ -161,7 +161,7 @@ int	key_control(int keycode, t_game *game)
 	return (0);
 }
 
-int	exit_func(void *param)
+int	end_game(void *param)
 {
 	(void)param;
 	exit(0);
