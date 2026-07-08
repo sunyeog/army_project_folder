@@ -209,32 +209,6 @@ int	find_height(t_game *game)
 	return (i);
 }
 
-void	rect_check(t_game *game)
-{
-	int	len;
-	int	s_len;
-	int	i;
-
-	len = ft_strlen(game -> map[0]);
-	i = 0;
-	while (game -> map[i])
-	{
-		s_len = ft_strlen(game -> map[i]);
-		if (s_len != len || game -> map[i][0] != '1' ||
-				game -> map[i][len - 1] != '1')
-			error(1);
-		i++;
-	}
-	s_len = i;
-	i = 0;
-	while (i < len)
-	{
-		if (game -> map[0][i] != '1' || game -> map[s_len - 1][i] != '1')
-			error(1);
-		i++;
-	}
-}
-
 void    split_free(char **arr)
 {
         int     i;
@@ -251,6 +225,7 @@ void    split_free(char **arr)
 int	main(int ac, char **av)
 {
 	int		fd;
+	char	**dup_map;
 	t_game	game;
 	
 	check_av(ac, av);
@@ -262,6 +237,16 @@ int	main(int ac, char **av)
 	game.h = find_height(&game);
 	start_map_check(&game);
 	rect_check(&game);
+	dup_map = cp_map(game.map, game.h);
+	dfs(dup_map, game.row, game.col);
+	if (cnt_char(dup_map, 'C') != 0 || cnt_char(dup_map, 'E') != 0)
+	{
+		split_free(dup_map);
+		split_free(game.map);
+		error(4);
+	}
+	split_free(dup_map);
+
 	game.print_cnt = 0;
 	game.temp = mlx_init(); // mlx초기화, 일종의 mlx시작버튼
 	game.win = mlx_new_window(game.temp, 64 * game.w, 64 * game.h, "start");

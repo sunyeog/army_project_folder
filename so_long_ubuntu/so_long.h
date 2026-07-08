@@ -33,7 +33,6 @@ typedef struct f_struct
 typedef struct f_game
 {
 	char	**map;
-	char	**test_map;
 	int		row;
 	int		col;
 	int		w;
@@ -52,5 +51,9 @@ int	check_extension(char *av);
 void	check_av(int ac, char **av);
 
 void	start_map_check(t_game *game);
+void	rect_check(t_game *game);
+char **cp_map(char **map, int size);
+int	cnt_char(char **map, char c);
+int	dfs(char **map, int row, int col);
 
 #endif
