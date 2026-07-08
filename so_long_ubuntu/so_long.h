@@ -45,6 +45,9 @@ typedef struct f_game
 	int		cnt_p;
 }	t_game;
 
+void    split_free(char **arr);
+
+void	error(int num);
 int	open_file(char **av);
 void	mk_map_arr(int fd, t_game *game);
 int	check_extension(char *av);
@@ -54,6 +57,6 @@ void	start_map_check(t_game *game);
 void	rect_check(t_game *game);
 char **cp_map(char **map, int size);
 int	cnt_char(char **map, char c);
-int	dfs(char **map, int row, int col);
+void	dfs(char **map, int row, int col);
 
 #endif
