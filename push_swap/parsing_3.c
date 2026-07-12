@@ -44,6 +44,23 @@ int	if_already_sort(t_point *stack_A)
 		return (1);
 }
 
+void	space_error(char **av)
+{
+	int	i;
+	int	f;
+
+	i = 0;
+	f = 0;
+	while (av[1][i])
+	{
+		if (av[1][i] != ' ')
+			f++;
+		i++;
+	}
+	if (f == 0)
+		error();
+}
+
 int	parsing(t_point *stack_A, t_point *stack_B, int ac, char **av)
 {
 	int		i;
