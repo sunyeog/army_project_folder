@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:36:49 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/04/08 03:30:26 by codespace        ###   ########.fr       */
+/*   Updated: 2026/07/12 14:20:06 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ void	push(t_point *p, int d)
 	p -> size++;
 }
 
+void	free_stack(t_point *stack_a, t_point *stack_b)
+{
+	while (stack_a -> top != NULL)
+		pop(stack_a);
+	free(stack_a);
+	free(stack_b);
+}
+
 int	main(int ac, char **av)
 {
 	t_point	*stack_a;
@@ -78,21 +86,21 @@ int	main(int ac, char **av)
 
 	stack_a = l_init();
 	stack_b = l_init();
-	parsing(stack_a, av);
+	if (parsing(stack_a, stack_b, ac, av) == 0)
+		return (0);
 	if (stack_a -> size == 2)
 		size_is_2(stack_a);
 	else if (stack_a -> size == 3)
 		size_is_3(stack_a);
-	else if (stack_a -> size >= 4 && stack_a -> size <= 100)
+	else if (stack_a -> size == 4 || stack_a -> size == 5)
+		size_is_5(stack_a, stack_b);
+	else if (stack_a -> size >= 6 && stack_a -> size <= 100)
 		chunk_sort(stack_a, stack_b, 5);
-	else if (stack_a -> size >= 4 && stack_a -> size <= 250)
+	else if (stack_a -> size >= 6 && stack_a -> size <= 250)
 		chunk_sort(stack_a, stack_b, 10);
 	else if (stack_a -> size > 250)
 		chunk_sort(stack_a, stack_b, 14);
-	while (stack_a -> top != NULL)
-		pop(stack_a);
-	free(stack_a);
-	free(stack_b);
+	free_stack(stack_a, stack_b);
 	(void)ac;
 	return (0);
 }

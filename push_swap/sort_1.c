@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:37:27 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/03/25 13:37:29 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/07/12 14:20:25 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,48 +45,70 @@ void	size_is_3(t_point *stack_A)
 		sa(stack_A, 1);
 }
 
-void	insert_index(t_point *stack_A, int *arr)
-{
-	t_node	*stop_cur;
-	t_node	*mv_cur;
-	int		index;
-	int		i;
-
-	i = 0;
-	stop_cur = stack_A -> top;
-	while (i < stack_A -> size)
-	{
-		index = 0;
-		mv_cur = stack_A -> top;
-		while (mv_cur != NULL)
-		{
-			if (mv_cur -> data < stop_cur -> data)
-				index++;
-			mv_cur = mv_cur -> next;
-		}
-		arr[i] = index;
-		stop_cur = stop_cur -> next;
-		i++;
-	}
-}
-
-void	to_index_stack(t_point *stack_A)
+int	find_lowest_index(t_point	*stack_A)
 {
 	int		i;
-	int		*arr;
+	int		res_i;
+	int		res_value;
 	t_node	*cur;
 
-	i = 0;
-	cur = stack_A -> top;
-	arr = (int *)malloc(sizeof(int) * stack_A -> size);
-	if (arr == NULL)
-		error();
-	insert_index(stack_A, arr);
-	while (cur != NULL)
+	i = 1;
+	res_i = 0;
+	res_value = stack_A -> top -> data;
+	cur = stack_A -> top -> next;
+	while (i < stack_A -> size)
 	{
-		cur -> data = arr[i];
+		if (res_value > cur -> data)
+		{
+			res_value = cur -> data;
+			res_i = i;
+		}	
 		cur = cur -> next;
 		i++;
 	}
-	free(arr);
+	return (res_i);
+}
+
+void	pb_lowest(t_point *stack_A, t_point *stack_B)
+{
+	int	i;
+	int	pos;
+
+	i = 0;
+	pos = find_lowest_index(stack_A);
+	if (pos > (stack_A -> size / 2))
+	{
+		while (i < stack_A -> size - pos)
+		{
+			rra(stack_A, 1);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < pos)
+		{
+			ra(stack_A, 1);
+			i++;
+		}
+	}
+	pb(stack_A, stack_B);
+}
+
+void	size_is_5(t_point *stack_A, t_point *stack_B)
+{
+	if (stack_A -> size == 4)
+	{
+		pb_lowest(stack_A, stack_B);
+		size_is_3(stack_A);
+		pa(stack_A, stack_B);
+	}
+	else
+	{
+		pb_lowest(stack_A, stack_B);
+		pb_lowest(stack_A, stack_B);
+		size_is_3(stack_A);
+		pa(stack_A, stack_B);
+		pa(stack_A, stack_B);
+	}
 }

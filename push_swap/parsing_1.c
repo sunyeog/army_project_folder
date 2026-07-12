@@ -18,6 +18,16 @@ void	error(void)
 	exit(1);
 }
 
+void	error_free(char **arr, t_point *stack_a, t_point *stack_b)
+{
+	if (arr != NULL)
+		split_free(arr);
+	if (stack_a != NULL)
+		free_stack(stack_a, stack_b);
+	ft_putstr_fd("Error\n", 2);
+	exit(1);
+}
+
 void	split_free(char **arr)
 {
 	int	i;
@@ -77,19 +87,5 @@ char	**fill_arr(char **av, char **res)
 		free(temp);
 		i++;
 	}
-	return (res);
-}
-
-char	**to_new_arr(char **av)
-{
-	char	**res;
-	int		len;
-
-	len = return_split_len(av);
-	res = (char **)malloc(sizeof(char *) * (len + 1));
-	if (res == NULL)
-		error();
-	res = fill_arr(av, res);
-	res[len] = NULL;
 	return (res);
 }

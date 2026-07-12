@@ -3,98 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   sort_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
+/*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 13:37:43 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/03/25 13:37:44 by sunhnoh          ###   ########.fr       */
+/*   Created: 2026/07/12 13:28:18 by sunhnoh           #+#    #+#             */
+/*   Updated: 2026/07/12 13:28:19 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rest_process(t_point *stack_A, t_point *stack_B, int chunk)
+void	insert_index(t_point *stack_A, int *arr)
 {
-	int	i;
-	int	size;
-
-	size = stack_A -> size;
-	i = 0;
-	while (i < size % chunk)
-	{
-		if (stack_A -> top -> data < size % chunk)
-		{
-			pb(stack_A, stack_B);
-			i++;
-		}
-		else
-			ra(stack_A, 1);
-	}
-}
-
-void	to_stack_b(t_point *stack_A, t_point *stack_B, int chunk, int range)
-{
-	int	pb_cnt;
-	int	size;
-	int	i;
+	t_node	*stop_cur;
+	t_node	*mv_cur;
+	int		index;
+	int		i;
 
 	i = 0;
-	size = stack_A -> size;
-	while (i < chunk)
+	stop_cur = stack_A -> top;
+	while (i < stack_A -> size)
 	{
-		if (chunk > size)
-			break ;
-		pb_cnt = 0;
-		while (pb_cnt < (size / chunk))
+		index = 0;
+		mv_cur = stack_A -> top;
+		while (mv_cur != NULL)
 		{
-			if (stack_A -> top -> data < range)
-			{
-				pb(stack_A, stack_B);
-				pb_cnt++;
-			}
-			else
-				ra(stack_A, 1);
+			if (mv_cur -> data < stop_cur -> data)
+				index++;
+			mv_cur = mv_cur -> next;
 		}
-		range += (size / chunk);
+		arr[i] = index;
+		stop_cur = stop_cur -> next;
 		i++;
 	}
 }
 
-void	to_stack_a(t_point *stack_A, t_point *stack_B)
+void	to_index_stack(t_point *stack_A)
 {
-	int		size;
-	int		loc;
+	int		i;
+	int		*arr;
 	t_node	*cur;
 
-	while (stack_B -> top != NULL)
+	i = 0;
+	cur = stack_A -> top;
+	arr = (int *)malloc(sizeof(int) * stack_A -> size);
+	if (arr == NULL)
+		error();
+	insert_index(stack_A, arr);
+	while (cur != NULL)
 	{
-		loc = 0;
-		size = stack_B -> size;
-		cur = stack_B -> top;
-		while (cur -> data != size - 1)
-		{
-			loc++;
-			cur = cur -> next;
-		}
-		while (stack_B -> top -> data != size - 1)
-		{
-			if (loc > (size / 2))
-				rrb(stack_B, 1);
-			else
-				rb(stack_B, 1);
-		}
-		pa(stack_A, stack_B);
+		cur -> data = arr[i];
+		cur = cur -> next;
+		i++;
 	}
-}
-
-void	chunk_sort(t_point *stack_A, t_point *stack_B, int chunk)
-{
-	int	size;
-	int	range;
-
-	size = stack_A -> size;
-	to_index_stack(stack_A);
-	rest_process(stack_A, stack_B, chunk);
-	range = size / chunk + size % chunk;
-	to_stack_b(stack_A, stack_B, chunk, range);
-	to_stack_a(stack_A, stack_B);
+	free(arr);
 }
