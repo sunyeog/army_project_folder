@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:32:51 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/07/09 17:06:46 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/03/25 13:32:57 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error(void)
 {
-	ft_putstr_fd("Error\n", 2);
+	ft_printf("Error\n");
 	exit(1);
 }
 

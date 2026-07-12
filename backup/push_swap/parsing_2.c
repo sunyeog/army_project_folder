@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:35:16 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/07/09 16:34:37 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/03/25 13:35:19 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,19 @@ int	ft_strcmp(char *s1, char *s2)
 
 void	check_dup(t_point *stack_A)
 {
-	t_node	*i;
-	t_node	*j;
+    t_node	*i;
+    t_node	*j;
 
-	i = stack_A -> top;
-	while (i != NULL)
-	{
-		j = i -> next;
-		while (j != NULL)
-		{
-			if (i -> data == j -> data)
-				error();
-			j = j -> next;
-		}
-		i = i -> next;
-	}
+    i = stack_A -> top;
+    while (i != NULL)
+    {
+        j = i -> next;
+        while (j != NULL)
+        {
+            if (i -> data == j -> data)
+                error();
+            j = j -> next;
+        }
+        i = i -> next;
+    }
 }

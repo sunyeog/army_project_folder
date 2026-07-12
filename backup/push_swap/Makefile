@@ -14,7 +14,7 @@ all: ${NAME}
 ${NAME} : $(OBJ)
 	make -C $(LIBA)
 	make -C $(PRINT)
-	$(CC) $(FLAG) -I./ $(OBJ) -o $(NAME)  $(LIBA)/$(LIBAA) $(PRINT)/$(PRINTA)
+	$(CC) $(FLAG) -I./ $(SRC) -o $(NAME)  $(LIBA)/$(LIBAA) $(PRINT)/$(PRINTA)
 
 clean :
 	/bin/rm -f $(OBJ)

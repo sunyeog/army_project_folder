@@ -1,42 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_3.c                                        :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunhnoh <sunhnoh@student.42gyeongsan.kr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 13:35:33 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/03/25 13:35:35 by sunhnoh          ###   ########.fr       */
+/*   Created: 2026/04/08 03:41:34 by sunhnoh           #+#    #+#             */
+/*   Updated: 2026/04/23 13:29:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "minitalk.h"
 
-int	arr_len(char **arr)
+void	send_sig(pid_t pid, char c)
 {
 	int	i;
 
 	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
-void	parsing(t_point *stack_A, char **av)
-{
-	int		i;
-	int		len;
-	char	**arr;
-
-	i = 0;
-	arr = to_new_arr(av);
-	len = arr_len(arr);
-	while (arr[i])
+	while (i < 8)
 	{
-		check_int(arr[len - 1 - i]);
-		long_atoi(stack_A, arr[len - 1 - i]);
+		if ((c >> i) & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep (400);
 		i++;
 	}
-	check_dup(stack_A);
-	split_free(arr);
+}
+
+int	main(int ac, char **av)
+{
+	int		i;
+	pid_t	pid;
+
+	if (ac != 3)
+		return (1);
+	i = 0;
+	pid = ft_atoi(av[1]);
+	while (av[2][i])
+	{
+		send_sig(pid, av[2][i]);
+		i++;
+	}
+	send_sig(pid, av[2][i]);
+	return (0);
 }
