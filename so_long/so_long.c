@@ -42,6 +42,9 @@ void	find_wh(t_game *game)
 
 	i = 0;
 	j = 0;
+	game -> cnt_e = 0;
+	game -> cnt_c = 0;
+	game -> cnt_p = 0;
 	while (game -> map[0][j] != '\0')
 		j++;
 	game -> w = j;

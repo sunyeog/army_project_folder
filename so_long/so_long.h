@@ -47,6 +47,7 @@ int		open_file(char **av);
 void	mk_map_arr(int fd, t_game *game);
 int		check_extension(char *av);
 void	check_av(int ac, char **av);
+int		has_empty_line(char *s);
 void	start_map_check(t_game *game);
 void	rect_check(t_game *game);
 char	**cp_map(char **map, int size);

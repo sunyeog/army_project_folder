@@ -12,14 +12,25 @@
 
 #include "so_long.h"
 
+int	has_empty_line(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i + 1])
+	{
+		if (s[i] == '\n' && s[i + 1] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	start_map_check(t_game *game)
 {
 	int	i;
 	int	j;
 
-	game -> cnt_e = 0;
-	game -> cnt_c = 0;
-	game -> cnt_p = 0;
 	i = 0;
 	while (game -> map[i] != NULL)
 	{
@@ -32,6 +43,8 @@ void	start_map_check(t_game *game)
 				game -> cnt_c++;
 			else if (game -> map[i][j] == 'P')
 				game -> cnt_p++;
+			else if (game->map[i][j] != '0' && game->map[i][j] != '1')
+				error(4, game);
 			j++;
 		}
 		i++;

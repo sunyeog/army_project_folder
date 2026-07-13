@@ -84,7 +84,7 @@ int	main(int ac, char **av)
 	t_point	*stack_a;
 	t_point	*stack_b;
 
-	space_error(av);
+	space_error(av, ac);
 	stack_a = l_init();
 	stack_b = l_init();
 	if (parsing(stack_a, stack_b, ac, av) == 0)

@@ -53,6 +53,11 @@ void	mk_map_arr(int fd, t_game *game)
 		free(tmp_arr);
 		tmp_arr = get_next_line(fd);
 	}
+	if (has_empty_line(res_arr))
+	{
+		free(res_arr);
+		error(4, NULL);
+	}
 	game -> map = ft_split(res_arr, '\n');
 	free(res_arr);
 	if (game -> map == NULL || game -> map[0] == NULL)

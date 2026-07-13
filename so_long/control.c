@@ -33,6 +33,8 @@ void	act(int keycode, t_game *game)
 	char	c;
 
 	c = save_value(keycode, game);
+	if (c == 0)
+		return ;
 	if (c == 'E' && game -> cnt_c == 0)
 		end_game(game);
 	else if (c == 'E' || c == '1')

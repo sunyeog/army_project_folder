@@ -6,6 +6,7 @@ OBJ = $(SRC:.c=.o)
 NAME = so_long
 LIBA = ./mlx
 LIBAA = libmlx.a
+MLXH = mlx.h
 LIBF = ./Libft
 LIBFF = libft.a
 HEAD = so_long.h

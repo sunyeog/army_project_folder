@@ -44,11 +44,13 @@ int	if_already_sort(t_point *stack_A)
 		return (1);
 }
 
-void	space_error(char **av)
+void	space_error(char **av, int ac)
 {
 	int	i;
 	int	f;
 
+	if (ac < 2)
+		return ;
 	i = 0;
 	f = 0;
 	while (av[1][i])
