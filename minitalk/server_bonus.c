@@ -14,10 +14,17 @@
 
 void	combine_char(int sig, siginfo_t *info, void *x)
 {
-	static int	i;
-	static char	c;
+	static int		i;
+	static char		c;
+	static pid_t	s;
 
 	(void)x;
+	if (s != info -> si_pid)
+	{
+		i = 0;
+		c = 0;
+	}
+	s = info->si_pid;
 	if (sig == SIGUSR1)
 		c |= (1 << i);
 	i++;

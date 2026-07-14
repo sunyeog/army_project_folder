@@ -33,34 +33,33 @@ void	act(int keycode, t_game *game)
 	char	c;
 
 	c = save_value(keycode, game);
-	if (c == 0)
+	if (c == 0 || c == '1')
 		return ;
 	if (c == 'E' && game -> cnt_c == 0)
 		end_game(game);
-	else if (c == 'E' || c == '1')
-		return ;
-	else
+	if (c == 'C')
 	{
-		if (c == 'C')
-			game -> cnt_c--;
-		if (keycode == 65362 || keycode == 119)
-			game -> row--;
-		else if (keycode == 65364 || keycode == 115)
-			game -> row++;
-		else if (keycode == 65361 || keycode == 97)
-			game -> col--;
-		else if (keycode == 65363 || keycode == 100)
-			game -> col++;
-		game -> print_cnt += 1;
-		ft_printf("%d\n", game -> print_cnt);
+		game->cnt_c--;
+		c = '0';
 	}
+	game->under = c;
+	if (keycode == 65362 || keycode == 119)
+		game -> row--;
+	else if (keycode == 65364 || keycode == 115)
+		game -> row++;
+	else if (keycode == 65361 || keycode == 97)
+		game -> col--;
+	else if (keycode == 65363 || keycode == 100)
+		game -> col++;
+	game -> print_cnt += 1;
+	ft_printf("%d\n", game -> print_cnt);
 }
 
 int	key_control(int keycode, t_game *game)
 {
 	if (keycode == 65307)
 		end_game(game);
-	game -> map[game -> row][game -> col] = '0';
+	game -> map[game -> row][game -> col] = game->under;
 	act(keycode, game);
 	game -> map[game -> row][game -> col] = 'P';
 	print_map(game);

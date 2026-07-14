@@ -12,11 +12,19 @@
 
 #include "minitalk.h"
 
-void	combine_char(int sig)
+void	combine_char(int sig, siginfo_t *info, void *x)
 {
-	static int	i;
-	static char	c;
+	static int		i;
+	static char		c;
+	static pid_t	s;
 
+	(void)x;
+	if (s != info -> si_pid)
+	{
+		i = 0;
+		c = 0;
+	}
+	s = info->si_pid;
 	if (sig == SIGUSR1)
 		c |= (1 << i);
 	i++;
@@ -36,9 +44,9 @@ int	main(void)
 	struct sigaction	sa;
 
 	ft_printf("pid is : %d\n", getpid());
-	sa.sa_handler = combine_char;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = combine_char;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)

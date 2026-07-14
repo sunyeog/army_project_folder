@@ -73,6 +73,7 @@ int	main(int ac, char **av)
 	char	**dup_map;
 	t_game	game;
 
+	game.under = '0';
 	check_av(ac, av);
 	fd = open_file(av);
 	mk_map_arr(fd, &game);

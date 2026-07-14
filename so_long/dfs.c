@@ -62,11 +62,6 @@ void	dfs(char **map, int row, int col)
 {
 	if (map[row][col] == '1')
 		return ;
-	if (map[row][col] == 'E')
-	{
-		map[row][col] = '1';
-		return ;
-	}
 	map[row][col] = '1';
 	dfs(map, row - 1, col);
 	dfs(map, row + 1, col);
@@ -81,6 +76,6 @@ void	dfs_check(char **map, int row, int col, t_game *game)
 	{
 		split_free(map);
 		split_free(game -> map);
-		error(4, NULL);
+		error(5, NULL);
 	}
 }

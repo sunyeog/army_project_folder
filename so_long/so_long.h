@@ -24,6 +24,7 @@
 typedef struct f_game
 {
 	char	**map;
+	char	under;
 	int		row;
 	int		col;
 	int		w;

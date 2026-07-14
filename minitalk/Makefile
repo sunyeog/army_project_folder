@@ -16,7 +16,7 @@ LIBA = ./libft
 LIBAA = libft.a
 PRINT = ./ft_printf
 PRINTA = libftprintf.a
-
+HEAD = minitalk.h
 
 all: ${NAME1} ${NAME2}
 
@@ -40,16 +40,19 @@ ${BON1} : $(BOBJ1) $(PRINT)/$(PRINTA) $(LIBA)/$(LIBAA)
 ${BON2} : $(BOBJ2) $(PRINT)/$(PRINTA) $(LIBA)/$(LIBAA)
 	$(CC) $(FLAG) -I./ $(BOBJ2) -o $(BON2) $(PRINT)/$(PRINTA) $(LIBA)/$(LIBAA)
 
+%.o: %.c $(HEAD)
+	$(CC) $(FLAG) -I./ -c $< -o $@
+
 clean :
-	/bin/rm -f $(OBJ1)
-	/bin/rm -f $(OBJ2)
-	/bin/rm -f $(BOBJ1)
-	/bin/rm -f $(BOBJ2)
+	rm -f $(OBJ1)
+	rm -f $(OBJ2)
+	rm -f $(BOBJ1)
+	rm -f $(BOBJ2)
 fclean : clean
-	/bin/rm -f $(NAME1)
-	/bin/rm -f $(NAME2)
-	/bin/rm -f $(BON1)
-	/bin/rm -f $(BON2)
+	rm -f $(NAME1)
+	rm -f $(NAME2)
+	rm -f $(BON1)
+	rm -f $(BON2)
 	make -C $(PRINT) fclean
 	make -C $(LIBA) fclean
-re : fclean all bonus
+re : fclean all

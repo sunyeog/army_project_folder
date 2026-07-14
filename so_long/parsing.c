@@ -24,6 +24,8 @@ void	error(int num, t_game *game)
 		ft_printf("Error\nmalloc_error\n");
 	else if (num == 4)
 		ft_printf("Error\nmap_error\n");
+	else if (num == 5)
+		ft_printf("Error\ndfs_error\n");
 	exit(1);
 }
 

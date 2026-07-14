@@ -16,6 +16,8 @@ int	has_empty_line(char *s)
 {
 	int	i;
 
+	if (s[0] == '\n')
+		return (1);
 	i = 0;
 	while (s[i] && s[i + 1])
 	{

@@ -17,6 +17,22 @@ void	nothing(int sig)
 	(void)sig;
 }
 
+int	is_num(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s[0] == 0)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	send_sig(pid_t pid, char c)
 {
 	int	i;
@@ -33,6 +49,18 @@ void	send_sig(pid_t pid, char c)
 	}
 }
 
+int	check_pid(char *s)
+{
+	pid_t	pid;
+
+	if (!is_num(s))
+		return (0);
+	pid = ft_atoi(s);
+	if (pid <= 0 || kill(pid, 0) == -1)
+		return (0);
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	pid_t				pid;
@@ -41,12 +69,17 @@ int	main(int ac, char **av)
 
 	if (ac != 3)
 		return (1);
+	if (!check_pid(av[1]))
+	{
+		ft_printf("Error\n");
+		return (1);
+	}
+	pid = ft_atoi(av[1]);
 	sa.sa_handler = nothing;
-	i = 0;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
-	pid = ft_atoi(av[1]);
+	i = 0;
 	while (av[2][i])
 	{
 		send_sig(pid, av[2][i]);

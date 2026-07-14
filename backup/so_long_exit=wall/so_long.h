@@ -1,0 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunhnoh <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/22 15:50:10 by sunhnoh           #+#    #+#             */
+/*   Updated: 2026/07/10 06:13:44 by sunhnoh          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SO_LONG_H
+# define SO_LONG_H
+
+# include "./mlx/mlx.h"
+# include "./Libft/libft.h"
+# include "get_next_line.h"
+# include "./Libft/ft_printf.h"
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+
+typedef struct f_game
+{
+	char	**map;
+	int		row;
+	int		col;
+	int		w;
+	int		h;
+	void	*mlx;
+	void	*wd;
+	int		print_cnt;
+	int		cnt_e;
+	int		cnt_c;
+	int		cnt_p;
+	void	*road;
+	void	*wall;
+	void	*c;
+	void	*e;
+	void	*p;
+}	t_game;
+
+void	error(int num, t_game *game);
+void	split_free(char **arr);
+int		open_file(char **av);
+void	mk_map_arr(int fd, t_game *game);
+int		check_extension(char *av);
+void	check_av(int ac, char **av);
+int		has_empty_line(char *s);
+void	start_map_check(t_game *game);
+void	rect_check(t_game *game);
+char	**cp_map(char **map, int size);
+int		cnt_char(char **map, char c);
+void	dfs(char **map, int row, int col);
+void	dfs_check(char **map, int row, int col, t_game *game);
+char	save_value(int keycode, t_game *game);
+void	act(int keycode, t_game *game);
+int		key_control(int keycode, t_game *game);
+int		end_game(t_game *game);
+void	load_image(t_game *game);
+void	*pick(t_game *game, char c);
+void	print_map(t_game *game);
+
+#endif
