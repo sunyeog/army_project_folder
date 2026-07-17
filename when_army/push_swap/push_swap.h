@@ -59,6 +59,7 @@ char	**to_new_arr(char **av);
 void	check_dup(t_point *stack_A, char **arr, t_point *stack_B);
 int		arr_len(char **arr);
 int		if_already_sort(t_point *stack_A);
+int		space_only(char *s);
 void	space_error(char **av, int ac);
 int		parsing(t_point *stack_A, t_point *stack_B, int ac, char **av);
 void	size_is_2(t_point *stack_A);
