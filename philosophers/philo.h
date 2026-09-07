@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/08/31 00:53:28 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/09/07 15:03:51 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int philo_atoi(char *str);
 typedef struct s_data
 {
 	int				nb_philo;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
-	int				must_eat;
-	long			start_time;
+	long long		time_die;
+	long long		time_eat;
+	long long		time_sleep;
+	int	 			must_eat;
+	long long		start_time;
 	pthread_mutex_t	*forks;
 }	t_data;
 
@@ -42,5 +42,9 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	t_data			*data;
 }	t_philo;
+
+int check_range(int ac, char **av, t_data *data);
+int check_num(int ac, char **av);
+int parsing(int ac, char **av, t_data *data);
 
 #endif

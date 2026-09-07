@@ -6,23 +6,33 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:00 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/08/30 19:56:03 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/09/07 15:04:06 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int check_range(int ac, char **av)
+int check_range(int ac, char **av, t_data *data)
 {
     int i;
+    int ret;
 
-    i = 1;
-    if (philo_atoi(av[1]) == 0)
-            return (-1);
+    i = 2;
+    ret = philo_atoi(av[1]);
+    if (ret <= 0)
+        return (-1);
+    data -> nb_philo = ret;
     while (i < ac)
     {
-        if (philo_atoi(av[i]) == -1)
+        ret = philo_atoi(av[i]);
+        if (ret == -1)
             return (-1);
+        if (i == 2)
+            data -> time_die = ret;
+        else if (i == 3)
+            data -> time_eat = ret;
+        else if (i == 4)
+            data -> time_sleep = ret;
         i++;
     }
     return (0);
@@ -50,11 +60,15 @@ int check_num(int ac, char **av)
     return (0);
 }
 
-int parsing(int ac, char **av)
+int parsing(int ac, char **av, t_data *data)
 {
     if (!(ac == 5 || ac == 6))
         return (-1);
-    if (check_num(ac, av) == -1 || check_range(ac, av) == -1)
+    if (check_num(ac, av) == -1 || check_range(ac, av, data) == -1)
         return (-1);
+	if (ac == 6)
+        data->must_eat = philo_atoi(av[5]);
+    else
+		data->must_eat = -1;
     return (0);
 }
