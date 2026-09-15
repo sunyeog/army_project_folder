@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/09/07 15:09:58 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/09/14 13:54:04 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	main(int ac, char **av)
 {
-	
+	t_data data;
+
+    data.start_time = get_ms();
 }

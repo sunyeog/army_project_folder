@@ -6,13 +6,15 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/09/07 15:03:51 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/09/15 17:45:20 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+#include <stdio.h>
+#include <unistd.h>
 #include <pthread.h>
 #include <sys/time.h>
 
@@ -35,7 +37,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				id;
-	long			last_meal;
+	long long		last_meal;
 	int				meals_eaten;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
@@ -46,5 +48,10 @@ typedef struct s_philo
 int check_range(int ac, char **av, t_data *data);
 int check_num(int ac, char **av);
 int parsing(int ac, char **av, t_data *data);
+long long get_ms(void);
+void    start_eat(t_philo *philo);
+void	start_sleep(t_philo *philo);
+void	start_think(t_philo *philo);
+
 
 #endif
