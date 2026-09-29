@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:27 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/09/29 10:15:04 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/09/29 10:59:05 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	start_think(t_philo *philo)
     printf("%lld %d is thinking\n", get_ms() - philo->data->start_time, philo->id);
 }
 
-void	*routine(void *philo)
+void	*routine(void *ptr)
 {
-	(t_philo *)philo;
+	t_philo	*philo;
+
+	philo = (t_philo *)ptr;
 	start_eat(philo);
 	start_sleep(philo);
 	start_think(philo);
