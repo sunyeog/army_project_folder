@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/09/15 17:45:20 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/09/30 19:00:20 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/time.h>
@@ -31,18 +32,13 @@ typedef struct s_data
 	long long		time_sleep;
 	int	 			must_eat;
 	long long		start_time;
-	pthread_mutex_t	*forks;
 }	t_data;
 
 typedef struct s_philo
 {
 	int				id;
-	long long		last_meal;
-	int				meals_eaten;
-	pthread_t		thread;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
 	t_data			*data;
+	pthread_t		thread;
 }	t_philo;
 
 int check_range(int ac, char **av, t_data *data);
@@ -52,6 +48,7 @@ long long get_ms(void);
 void    start_eat(t_philo *philo);
 void	start_sleep(t_philo *philo);
 void	start_think(t_philo *philo);
+void	*routine(void *ptr);
 
 
 #endif

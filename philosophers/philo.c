@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:27 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/09/29 10:59:05 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/09/30 15:56:24 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,17 @@ void	start_think(t_philo *philo)
 
 void	*routine(void *ptr)
 {
+	int	i;
 	t_philo	*philo;
 
+	i = 0;
 	philo = (t_philo *)ptr;
-	start_eat(philo);
-	start_sleep(philo);
-	start_think(philo);
-
+	while (i < 3)
+	{
+		start_eat(philo);
+		start_sleep(philo);
+		start_think(philo);
+		i++;
+	}
 	return (0);
 }
