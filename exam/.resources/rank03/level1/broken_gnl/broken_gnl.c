@@ -76,6 +76,7 @@ char *get_next_line(int fd)
   static char b[BUFFER_SIZE + 1] = "";
   char *ret = NULL;
   char *tmp = ft_strchr(b, '\n');
+  
   while(!tmp)
   {
     if (!str_append_str(&ret, b))
