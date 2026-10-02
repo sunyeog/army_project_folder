@@ -1,111 +1,127 @@
-/*
- * ft_scanf — 정답본
- *
- * 뼈대는 한 글자도 지우지 않았다.
- *   - 다섯 함수: 비어 있던 "// You may insert code here" 자리에만 코드 추가
- *                (맨 끝 return (0); 은 뼈대 그대로 두고, 실패 경로로 그대로 사용)
- *   - ft_scanf : "// ..." 두 자리를 채움 (필수)
- *   - ft_vfscanf: 두 줄 추가 (선택, 아래 설명)
- *
- * 외우기: 다섯 함수 전부 같은 모양
- *     c = fgetc(f);                  ← 한 글자 꺼내기
- *     while (조건에 맞는 동안) 처리하고 c = fgetc(f);
- *     if (c != EOF) ungetc(c, f);    ← 안 맞은 마지막 글자 돌려놓기
- *     성공이면 return (1);           ← 실패면 그대로 흘러내려 뼈대의 return (0)
- *
- * 주의: va_list를 값으로 넘기는 뼈대 구조라 x86_64(시험장)에선 정상,
- *       Apple Silicon 맥에서는 이상하게 동작할 수 있음.
- */
-
 #include <stdarg.h>
 #include <stdio.h>
 #include <ctype.h>
 
-int match_space(FILE *f)
-{
-	int c = fgetc(f);                          // [추가] 한 글자 꺼내기
+/*
+** 공통 패턴 (이것만 기억하면 됨):
+**   c = fgetc(f) 로 한 글자씩 꺼내 보고
+**   "내 것이 아닌" 글자를 만나면 ungetc(c, f) 로 되돌려 놓는다.
+**   (단, EOF는 되돌리지 않는다)
+*/
 
-	while (c != EOF && isspace(c))             // [추가] 공백인 동안
-		c = fgetc(f);                          // [추가]   계속 꺼내서 버리기
-	if (c != EOF)                              // [추가] 공백 아닌 글자는 다음 변환의 몫
-		ungetc(c, f);                          // [추가]   돌려놓기
-	return (0);                                // 뼈대 그대로 (공백 0개여도 성공)
+/* ============================================================
+** match_space
+** [추가] 공백을 전부 먹고, 공백이 아닌 첫 글자는 되돌려 놓음
+**        에러(ferror)면 -1, 아니면 1
+** ============================================================ */
+int	match_space(FILE *f)
+{
+	int	c = fgetc(f);	// [추가]
+
+	while (c != EOF && isspace(c))	// [추가] 공백이면 계속 먹기
+		c = fgetc(f);	// [추가]
+	if (c != EOF)	// [추가] 공백 아닌 글자는
+		ungetc(c, f);	// [추가] 다시 넣어두기
+	if (ferror(f))	// [추가]
+		return (-1);	// [추가]
+	return (1);	// [수정] 원본: return (0);
 }
 
-int match_char(FILE *f, char c)
+/* ============================================================
+** match_char
+** [추가] 형식 문자열의 일반 글자(예: ',')가 입력과 같은지 확인
+**        같으면 1, 다르면 되돌려 놓고 -1
+** ============================================================ */
+int	match_char(FILE *f, char c)
 {
-	int got = fgetc(f);                        // [추가] 입력 한 글자 꺼내기
+	int	in = fgetc(f);	// [추가]
 
-	if (got == c)                              // [추가] format 글자와 같으면
-		return (1);                            // [추가]   먹고 성공
-	if (got != EOF)                            // [추가] 다르면 (EOF는 글자가 아니므로 제외)
-		ungetc(got, f);                        // [추가]   돌려놓기
-	return (0);                                // 뼈대 그대로 (매칭 실패 → vfscanf가 멈춤)
+	if (in == c)	// [추가] 일치 -> 소비하고 성공
+		return (1);	// [추가]
+	if (in != EOF)	// [추가] 불일치 -> 되돌려 놓기
+		ungetc(in, f);	// [추가]
+	return (-1);	// [수정] 원본: return (0);
 }
 
-int scan_char(FILE *f, va_list ap)
+/* ============================================================
+** scan_char  (%c)
+** [추가] 공백도 건너뛰지 않고 딱 한 글자 저장
+** ============================================================ */
+int	scan_char(FILE *f, va_list ap)
 {
-	int c = fgetc(f);                          // [추가] 한 글자 꺼내기 (공백도 그대로 읽음)
+	int		c = fgetc(f);	// [추가]
+	char	*p = va_arg(ap, char *);	// [추가] 다음 인자(char *) 꺼내기
 
-	if (c != EOF)                              // [추가] 읽을 게 있으면
-	{
-		*va_arg(ap, char *) = c;               // [추가]   다음 가변인자(char *)가 가리키는 곳에 저장
-		return (1);                            // [추가]   성공
-	}
-	return (0);                                // 뼈대 그대로 (실패)
+	if (c == EOF)	// [추가]
+		return (-1);	// [추가]
+	*p = (char)c;	// [추가]
+	return (1);	// [수정] 원본: return (0);
 }
 
-int scan_int(FILE *f, va_list ap)
+/* ============================================================
+** scan_int  (%d)
+** [추가] 부호(+/-) 1개 -> 숫자가 하나도 없으면 실패
+**        -> 숫자 끝까지 누적 -> 숫자 아닌 글자는 되돌려 놓기
+** (앞 공백은 match_conv가 match_space로 이미 먹어줌)
+** ============================================================ */
+int	scan_int(FILE *f, va_list ap)
 {
-	int sign = 1;                              // [추가] 부호 (기본 +)
-	int res = 0;                               // [추가] 누적 결과
-	int count = 0;                             // [추가] 읽은 숫자 개수
-	int c = fgetc(f);                          // [추가] 앞 공백은 match_conv가 이미 먹은 상태
+	int	*p = va_arg(ap, int *);	// [추가]
+	int	sign = 1;	// [추가]
+	int	res = 0;	// [추가]
+	int	c = fgetc(f);	// [추가]
 
-	if (c == '-' || c == '+')                  // [추가] 부호가 있으면
+	if (c == '-' || c == '+')	// [추가] 부호 처리
 	{
-		if (c == '-')                          // [추가]
-			sign = -1;                         // [추가]   음수 기억
-		c = fgetc(f);                          // [추가]   부호는 먹고 다음 글자로
+		if (c == '-')	// [추가]
+			sign = -1;	// [추가]
+		c = fgetc(f);	// [추가]
 	}
-	while (c != EOF && isdigit(c))             // [추가] 숫자인 동안
+	if (!isdigit(c))	// [추가] 숫자가 없다 = 변환 실패
 	{
-		res = res * 10 + (c - '0');            // [추가]   atoi 원리: '7' - '0' = 7
-		count++;                               // [추가]
-		c = fgetc(f);                          // [추가]
+		if (c != EOF)	// [추가]
+			ungetc(c, f);	// [추가]
+		return (-1);	// [추가]
 	}
-	if (c != EOF)                              // [추가] 숫자 아닌 글자는 돌려놓기
-		ungetc(c, f);                          // [추가]   예) "17abc" → 'a' 돌려놓음
-	if (count > 0)                             // [추가] 숫자를 하나라도 읽었으면
+	while (isdigit(c))	// [추가] 123 = ((1*10)+2)*10+3
 	{
-		*va_arg(ap, int *) = res * sign;       // [추가]   다음 가변인자(int *)에 저장
-		return (1);                            // [추가]   성공
+		res = res * 10 + (c - '0');	// [추가]
+		c = fgetc(f);	// [추가]
 	}
-	return (0);                                // 뼈대 그대로 (숫자 0개 = 실패, 변수는 건드리지 않음)
+	if (c != EOF)	// [추가] 숫자 뒤 글자는 내 것이 아님
+		ungetc(c, f);	// [추가]
+	*p = res * sign;	// [추가]
+	return (1);	// [수정] 원본: return (0);
 }
 
-int scan_string(FILE *f, va_list ap)
+/* ============================================================
+** scan_string  (%s)
+** [추가] 공백 전까지 복사 -> 끝에 '\0' -> 공백은 되돌려 놓기
+** (앞 공백은 match_conv가 이미 먹어줌)
+** ============================================================ */
+int	scan_string(FILE *f, va_list ap)
 {
-	char *s = va_arg(ap, char *);              // [추가] 사용자 배열 주소 먼저 꺼내기
-	int count = 0;                             // [추가] 저장한 글자 수 = 다음 인덱스
-	int c = fgetc(f);                          // [추가] 앞 공백은 match_conv가 이미 먹은 상태
+	char	*s = va_arg(ap, char *);	// [추가]
+	int		i = 0;	// [추가]
+	int		c = fgetc(f);	// [추가]
 
-	while (c != EOF && !isspace(c))            // [추가] 공백이 아닌 동안  ← scan_int와 쌍둥이 구조
+	while (c != EOF && !isspace(c))	// [추가] 공백/EOF 전까지
 	{
-		s[count++] = c;                        // [추가]   배열에 저장
-		c = fgetc(f);                          // [추가]
+		s[i++] = c;	// [추가]
+		c = fgetc(f);	// [추가]
 	}
-	if (c != EOF)                              // [추가] 공백은 돌려놓기
-		ungetc(c, f);                          // [추가]   예) "hello world" → ' ' 돌려놓음
-	if (count > 0)                             // [추가] 한 글자라도 읽었으면
-	{
-		s[count] = '\0';                       // [추가]   끝 표시 (빠뜨리면 printf가 쓰레기까지 출력)
-		return (1);                            // [추가]   성공
-	}
-	return (0);                                // 뼈대 그대로 (실패)
+	if (c != EOF)	// [추가] 공백은 다음을 위해 되돌려 놓기
+		ungetc(c, f);	// [추가]
+	if (i == 0)	// [추가] 한 글자도 못 읽음 = 실패
+		return (-1);	// [추가]
+	s[i] = '\0';	// [추가]
+	return (1);	// [수정] 원본: return (0);
 }
 
-
+/* ============================================================
+** match_conv / ft_vfscanf
+** [변경 없음] 주어진 그대로
+** ============================================================ */
 int	match_conv(FILE *f, const char **format, va_list ap)
 {
 	switch (**format)
@@ -125,9 +141,9 @@ int	match_conv(FILE *f, const char **format, va_list ap)
 	}
 }
 
-int ft_vfscanf(FILE *f, const char *format, va_list ap)
+int	ft_vfscanf(FILE *f, const char *format, va_list ap)
 {
-	int nconv = 0;
+	int	nconv = 0;
 
 	int c = fgetc(f);
 	if (c == EOF)
@@ -153,21 +169,23 @@ int ft_vfscanf(FILE *f, const char *format, va_list ap)
 			break;
 		format++;
 	}
-	
+
 	if (ferror(f))
 		return EOF;
-	if (nconv == 0 && feof(f))                 // [추가] 원본: 없음 (선택 사항)
-		return EOF;                            // [추가]   뼈대는 맨 처음에만 EOF 검사해서,
-	return nconv;                              //   format "%d" + 입력 "   " 일 때 0을 반환한다
-}                                              //   (진짜 scanf는 -1) → 이 두 줄로 맞춤
+	return nconv;
+}
 
-
-int ft_scanf(const char *format, ...)
+/* ============================================================
+** ft_scanf
+** [추가] "// ..." 두 자리 = 가변인자 열기/닫기
+**        va_list 선언 -> va_start(ap, 마지막 고정인자) -> ... -> va_end
+** ============================================================ */
+int	ft_scanf(const char *format, ...)
 {
-	va_list	ap;                                // [수정] 원본: // ...  → 가변인자 목록 변수 선언
+	va_list	ap;	// [추가] 원본: // ...
 
-	va_start(ap, format);                      // [수정] 원본: // ...  → format 다음 인자부터 시작
-	int ret = ft_vfscanf(stdin, format, ap);   // 뼈대 그대로
-	va_end(ap);                                // [수정] 원본: // ...  → va_start와 짝으로 정리
-	return ret;                                // 뼈대 그대로
+	va_start(ap, format);	// [추가] 원본: // ...
+	int ret = ft_vfscanf(stdin, format, ap);
+	va_end(ap);	// [추가] 원본: // ...
+	return ret;
 }

@@ -1,109 +1,145 @@
-/*
- * broken_gnl — 정답본
- *
- * 외우기: 유틸은 "끝 · 개수 · NULL · 방향"   (FIX 1~5)
- *         GNL은  "누수 · EOF · 갱신 · 밀기"   (FIX 6~9)
- *
- * 표기: // [FIX n] 수정 | 원본: ...   → 원본 줄을 고친 곳
- *       // [FIX n] 추가 | 원본: 없음  → 원본에 없던 줄
- *       주석 없는 줄은 원본 그대로
- */
-
 #include "get_next_line.h"
 
-char *ft_strchr(char *s, int c)
+/* ============================================================
+** ft_strchr
+** [수정] while 조건에 s[i] && 추가
+**        -> 원본은 c가 없으면 '\0'을 지나쳐 메모리 끝까지 달려감
+** ============================================================ */
+char	*ft_strchr(char *s, int c)
 {
-	int i = 0;
-	while (s[i] && s[i] != c)                        // [FIX 1] 수정 | 원본: while (s[i] != c)
-		i++;                                         //   → c가 없으면 '\0'을 지나 메모리 밖까지 달림
-	if (s[i] == c)                                   //   → s[i]가 '\0'이면 멈추도록 조건 추가
-		return s + i;
+	int	i = 0;
+
+	while (s[i] && s[i] != c)	// [수정] 원본: while (s[i] != c)
+		i++;
+	if (s[i] == c)
+		return (s + i);
 	else
-		return NULL;
+		return (NULL);
 }
 
-void *ft_memcpy(void *dest, const void *src, size_t n)
+/* ============================================================
+** ft_memcpy
+** [수정] --n > 0, [n - 1]  ->  n-- > 0, [n]
+**        -> 원본은 마지막 1바이트를 빼먹음 (n=3이면 [1],[0]만 복사)
+**        -> 뒤에서부터 복사하는 방식은 그대로 유지
+**           (그래서 memmove의 dest > src 경우에도 안전함)
+** ============================================================ */
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	while (n-- > 0)                                  // [FIX 2] 수정 | 원본: while (--n > 0)
-		((char *)dest)[n] = ((char *)src)[n];        // [FIX 2] 수정 | 원본: dest[n - 1] = src[n - 1]
-	return dest;                                     //   → 원본은 먼저 줄고 비교해서 1글자 덜 복사 (n=1이면 0글자)
-}                                                    //   → 수정본은 n-1, ..., 0 순서 = "뒤에서부터" 복사 (FIX 4에서 활용)
+	while (n-- > 0)	// [수정] 원본: while (--n > 0)
+		((char *)dest)[n] = ((char *)src)[n];	// [수정] 원본: [n - 1]
+	return (dest);
+}
 
-size_t ft_strlen(char *s)
+/* ============================================================
+** ft_strlen
+** [추가] NULL 가드
+**        -> gnl 첫 호출 때 ret == NULL 상태로 str_append_mem이
+**           ft_strlen(*s1)을 부르므로, 가드가 없으면 바로 segfault
+** ============================================================ */
+size_t	ft_strlen(char *s)
 {
-	size_t res = 0;
-	if (!s)                                          // [FIX 3] 추가 | 원본: 없음
-		return (0);                                  //   → 첫 호출 때 ret == NULL → ft_strlen(NULL) → 세그폴트 방지
+	size_t	ret = 0;
+
+	if (!s)	// [추가]
+		return (0);	// [추가]
 	while (*s)
 	{
 		s++;
-		res++;
+		ret++;
 	}
-	return res;
+	return (ret);
 }
 
-int str_append_mem(char **s1, char *s2, size_t size2)
+/* ============================================================
+** str_append_mem
+** [변경 없음] 원본 그대로 (ft_strlen이 NULL을 처리하게 되어 정상 동작)
+** ============================================================ */
+int	str_append_mem(char **s1, char *s2, size_t size2)
 {
-	size_t size1 = ft_strlen(*s1);
-	char *tmp = malloc(size2 + size1 + 1);
+	size_t	size1 = ft_strlen(*s1);
+	char	*tmp = malloc(size2 + size1 + 1);
+
 	if (!tmp)
-		return 0;                                    // (원본 그대로) 실패 시 free(*s1) 전에 나감 → *s1은 살아 있음
+		return (0);
 	ft_memcpy(tmp, *s1, size1);
 	ft_memcpy(tmp + size1, s2, size2);
-	tmp[size1 + size2] = '\0';
-	free(*s1);                                       // (원본 그대로) 성공했을 때만 옛 문자열 반납
+	tmp[size1 + size2] = 0;
+	free(*s1);
 	*s1 = tmp;
-	return 1;
+	return (1);
 }
 
-int str_append_str(char **s1, char *s2)
+/* ============================================================
+** str_append_str
+** [변경 없음]
+** ============================================================ */
+int	str_append_str(char **s1, char *s2)
 {
-	return str_append_mem(s1, s2, ft_strlen(s2));
+	return (str_append_mem(s1, s2, ft_strlen(s2)));
 }
 
-void *ft_memmove(void *dest, const void *src, size_t n)
+/* ============================================================
+** ft_memmove
+** [수정] 마지막 루프를 "앞에서부터 i < n 까지"로 교체
+**        -> 원본: size_t i = strlen(src) - 1; while (i >= 0) i--;
+**           size_t는 음수가 없어서 i >= 0은 항상 참 = 무한루프
+**           또 n 대신 strlen을 써서 길이도 틀림
+**        -> 여기 오는 건 dest < src인 경우라 앞에서부터 복사해야 안전
+** ============================================================ */
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
+	size_t	i = 0;	// [수정] 원본: size_t i = ft_strlen((char *)src) - 1;
+
 	if (dest > src)
-		return ft_memcpy(dest, src, n);              // [FIX 4] 수정 | 원본: return ft_memmove(dest, src, n);
-	else if (dest == src)                            //   → 자기 자신을 똑같이 호출 = 무한 재귀
-		return dest;                                 //   → dest가 뒤면 "뒤에서부터" 복사해야 안전 = FIX 2의 memcpy
-	size_t i = 0;                                    // [FIX 5] 수정 | 원본: size_t i = ft_strlen((char *)src) - 1;
-	while (i < n)                                    // [FIX 5] 수정 | 원본: while (i >= 0)
-	{                                                //   → size_t는 음수가 없어 i >= 0 은 항상 참 = 무한 루프
-		((char *)dest)[i] = ((char *)src)[i];        //   → 개수도 strlen이 아니라 n 기준이어야 함
-		i++;                                         // [FIX 5] 수정 | 원본: i--;
-	}                                                //   → dest가 앞이면 "앞에서부터" 복사 (GNL은 항상 이 경로)
-	return dest;
+		return (ft_memcpy(dest, src, n));
+	else if (dest == src)
+		return (dest);
+	while (i < n)	// [수정] 원본: while (i >= 0)
+	{
+		((char *)dest)[i] = ((char *)src)[i];
+		i++;	// [수정] 원본: i--;
+	}
+	return (dest);
 }
 
-char *get_next_line(int fd)
+/* ============================================================
+** get_next_line
+** [수정 1] str_append_str 실패 시 free(ret) 추가 (누수 방지)
+** [수정 2] read_ret == -1만 보던 것을 <= 0 으로
+**          -> 0(EOF)일 때 버퍼 비우고, 모은 게 있으면 반환 / 없으면 NULL
+** [추가 3] 루프 끝에서 tmp = ft_strchr(b, '\n') 다시 검사
+**          -> 원본은 tmp를 갱신하지 않아 무한루프
+** [추가 4] 줄을 잘라 준 뒤 '\n' 뒤 나머지를 b 맨 앞으로 당기기 (memmove)
+**          -> 원본은 이게 없어서 다음 호출 때 같은 줄을 또 반환
+** ============================================================ */
+char	*get_next_line(int fd)
 {
-	static char b[BUFFER_SIZE + 1] = "";             // 컨베이어 벨트: 호출 사이에 남은 글자 보관
-	char *ret = NULL;                                // 이번에 반환할 줄
-	char *tmp = ft_strchr(b, '\n');                  // b 안의 '\n' 위치 (없으면 NULL)
+	static char	b[BUFFER_SIZE + 1] = "";
+	char		*ret = NULL;
+	char		*tmp = ft_strchr(b, '\n');
+
 	while (!tmp)
 	{
 		if (!str_append_str(&ret, b))
-			return (free(ret), NULL);                // [FIX 6] 수정 | 원본: return (NULL);
-		int read_ret = read(fd, b, BUFFER_SIZE);     //   → 모아 둔 ret이 누수. 실패 시 ret은 아직 살아 있어 free 안전
-		if (read_ret <= 0)                           // [FIX 7] 수정 | 원본: if (read_ret == -1)
-		{                                            //   → 0(EOF)을 안 잡아서 루프가 영원히 돎
-			b[0] = '\0';                             // [FIX 7] 추가 | 원본: 없음 → 다음 호출에 옛 내용이 안 나오게 비움
-			if (read_ret == 0 && ret && *ret)        // [FIX 7] 추가 | 원본: 없음 → EOF + 모은 게 있으면 마지막 줄 반환
-				return ret;                          //   → ret이 ""(빈 문자열)일 수 있어서 *ret까지 확인
-			free(ret);                               // [FIX 7] 추가 | 원본: 없음 → 모은 게 없거나 에러면 정리
-			return (NULL);                           // (원본 그대로)
+			return (free(ret), NULL);	// [수정 1] 원본: return (NULL);
+		int read_ret = read(fd, b, BUFFER_SIZE);
+		if (read_ret <= 0)	// [수정 2] 원본: if (read_ret == -1)
+		{
+			b[0] = '\0';	// [추가 2] 다음 호출을 위해 버퍼 비우기
+			if (read_ret == 0 && ret && *ret)	// [추가 2] EOF + 모은 내용 있음
+				return (ret);	// [추가 2] 마지막 줄(개행 없음) 반환
+			free(ret);	// [추가 2] 에러거나 빈 내용이면 해제
+			return (NULL);
 		}
 		b[read_ret] = 0;
-		tmp = ft_strchr(b, '\n');                    // [FIX 8] 추가 | 원본: 없음
-	}                                                //   → tmp를 다시 안 찾아서 영원히 NULL = 루프 탈출 불가
-	if (!str_append_mem(&ret, b, tmp - b + 1))       // (원본 그대로) '\n'까지 포함: 길이 = (tmp - b) + 1
+		tmp = ft_strchr(b, '\n');	// [추가 3] 새로 읽은 버퍼에서 '\n' 다시 찾기
+	}
+	if (!str_append_mem(&ret, b, tmp - b + 1))
 	{
 		free(ret);
-		return NULL;
+		return (NULL);
 	}
-	ft_memmove(b, tmp + 1, ft_strlen(tmp + 1) + 1);  // [FIX 9] 추가 | 원본: 없음 (memmove가 안 쓰이던 이유!)
-	return ret;                                      //   → 반환한 줄을 b에서 안 지워서 같은 줄이 또 나옴
-}                                                    //   → '\n' 다음부터 '\0'까지(+1) b 맨 앞으로 당김
-                                                     //     전: [L i n e 1 \n L i n e 2 \0]
-                                                     //     후: [L i n e 2 \0 ...]
+	ft_memmove(b, tmp + 1, ft_strlen(tmp + 1) + 1);	// [추가 4] +1은 '\0'까지 옮기기
+	return (ret);
+}
