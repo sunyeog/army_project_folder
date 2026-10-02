@@ -39,16 +39,16 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 ** ============================================================ */
 size_t	ft_strlen(char *s)
 {
-	size_t	ret = 0;
+	size_t	res = 0;
 
 	if (!s)	// [추가]
 		return (0);	// [추가]
 	while (*s)
 	{
 		s++;
-		ret++;
+		res++;
 	}
-	return (ret);
+	return (res);
 }
 
 /* ============================================================
@@ -81,24 +81,29 @@ int	str_append_str(char **s1, char *s2)
 
 /* ============================================================
 ** ft_memmove
-** [수정] 마지막 루프를 "앞에서부터 i < n 까지"로 교체
-**        -> 원본: size_t i = strlen(src) - 1; while (i >= 0) i--;
-**           size_t는 음수가 없어서 i >= 0은 항상 참 = 무한루프
-**           또 n 대신 strlen을 써서 길이도 틀림
-**        -> 여기 오는 건 dest < src인 경우라 앞에서부터 복사해야 안전
+** [수정 1] dest > src일 때 ft_memmove -> ft_memcpy
+**          -> 원본은 자기 자신을 똑같은 인자로 다시 부름
+**             = 무한 재귀 -> 스택 오버플로(segfault)
+**          -> 고친 ft_memcpy는 "뒤에서부터" 복사하므로
+**             dest > src로 겹쳐 있어도 안전함
+** [수정 2] 마지막 루프를 "앞에서부터 i < n 까지"로 교체
+**          -> 원본: size_t i = strlen(src) - 1; while (i >= 0) i--;
+**             size_t는 음수가 없어서 i >= 0은 항상 참 = 무한루프
+**             또 n 대신 strlen을 써서 길이도 틀림
+**          -> 여기 오는 건 dest < src인 경우라 앞에서부터 복사해야 안전
 ** ============================================================ */
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i = 0;	// [수정] 원본: size_t i = ft_strlen((char *)src) - 1;
+	size_t	i = 0;	// [수정 2] 원본: size_t i = ft_strlen((char *)src) - 1;
 
 	if (dest > src)
-		return (ft_memcpy(dest, src, n));
+		return (ft_memcpy(dest, src, n));	// [수정 1] 원본: return ft_memmove(dest, src, n);
 	else if (dest == src)
 		return (dest);
-	while (i < n)	// [수정] 원본: while (i >= 0)
+	while (i < n)	// [수정 2] 원본: while (i >= 0)
 	{
 		((char *)dest)[i] = ((char *)src)[i];
-		i++;	// [수정] 원본: i--;
+		i++;	// [수정 2] 원본: i--;
 	}
 	return (dest);
 }
