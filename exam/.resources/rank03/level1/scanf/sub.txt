@@ -29,25 +29,25 @@ Hint : You may need to read the man of scanf.
 int match_space(FILE *f)
 {
         // You may insert code here
-    return (0);
+    return (1);
 }
 
 int match_char(FILE *f, char c)
 {
         // You may insert code here
-    return (0);
+    return (-1);
 }
 
 int scan_char(FILE *f, va_list ap)
 {
         // You may insert code here
-    return (0);
+    return (1);
 }
 
 int scan_int(FILE *f, va_list ap)
 {
         // You may insert code here
-    return (0);
+    return (1);
 }
 
 int scan_string(FILE *f, va_list ap)
