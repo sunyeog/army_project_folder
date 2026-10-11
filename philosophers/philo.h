@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/11 10:39:34 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/11 11:23:16 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_data
 	long long		time_sleep;
 	int	 			must_eat;
 	long long		start_time;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	*mutex;
 }	t_data;
 
 typedef struct s_philo

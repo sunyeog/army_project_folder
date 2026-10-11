@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/10 23:46:35 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/11 13:11:54 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,25 @@ t_philo	*set_philo(t_data *data)
 	return (philo);
 }
 
+int	set_fork(t_data *data)
+{
+	pthread_mutex_t *f;
+	int		i;
+
+	i = 0;
+	f = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	if (f == NULL)
+		return (0);
+	data->mutex = f;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_init(&data->mutex[i], NULL);
+		i++;
+	}
+	return (1);
+}
+
+
 void	exe_pthread(t_philo *philo, void *(*fp)(void *))
 {
 	int	i;
@@ -48,6 +67,25 @@ void	exe_pthread(t_philo *philo, void *(*fp)(void *))
 	}
 }
 
+void	all_destroy(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_destroy(&data->mutex[i]);
+		i++;
+	}
+}
+
+void end_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
+{
+	all_destroy(data);
+	free(philo);
+	free(fork);
+}
+
 int	main(int ac, char **av)
 {
 	t_philo	*philo;
@@ -57,12 +95,18 @@ int	main(int ac, char **av)
 	if (parsing(ac, av, &data) == -1)
 		return (0);
 	fp = routine;
+	if (set_fork(&data) == 0)
+		return (0);
 	philo = set_philo(&data);
 	if (philo == NULL)
+	{
+		all_destroy(&data);
+		free(data.mutex);
 		return (0);
+	}
 	philo->data->start_time = get_ms();
 	exe_pthread(philo, fp);
-	free(philo);
+	end_philo(philo, data.mutex, &data);
 	return (0);
 	
 	// philo.id = 1;
