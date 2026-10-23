@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/11 11:23:16 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/23 09:12:06 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ long long get_ms(void);
 void    start_eat(t_philo *philo);
 void	start_sleep(t_philo *philo);
 void	start_think(t_philo *philo);
+void	take_fork(pthread_mutex_t *mutex, t_philo *philo);
 void	*routine(void *ptr);
 
 

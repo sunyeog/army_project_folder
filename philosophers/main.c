@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/11 13:11:54 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/23 00:12:01 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	set_fork(t_data *data)
 	}
 	return (1);
 }
-
 
 void	exe_pthread(t_philo *philo, void *(*fp)(void *))
 {
