@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/23 09:12:06 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/23 13:07:12 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				id;
+	long long 		last_meal;
 	t_data			*data;
 	pthread_t		thread;
 }	t_philo;

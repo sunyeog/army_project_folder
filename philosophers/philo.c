@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:27 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/23 11:09:23 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/23 13:27:49 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	*routine(void *ptr)
 	while (i < 3)
 	{
 		take_forks(philo, def_left);
+		philo->last_meal = get_ms();
 		start_eat(philo);
 		pthread_mutex_unlock(&philo->data->mutex[def_left]);
 		pthread_mutex_unlock(&philo->data->mutex[philo->id-1]);
