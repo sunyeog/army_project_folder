@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/23 13:07:12 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/27 14:10:00 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_data
 	long long		time_sleep;
 	int	 			must_eat;
 	long long		start_time;
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	*fork;
 }	t_data;
 
 typedef struct s_philo
@@ -41,6 +41,7 @@ typedef struct s_philo
 	long long 		last_meal;
 	t_data			*data;
 	pthread_t		thread;
+	pthread_mutex_t	mutex;
 }	t_philo;
 
 int check_range(int ac, char **av, t_data *data);

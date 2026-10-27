@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/23 00:12:01 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/27 14:08:31 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	set_fork(t_data *data)
 	f = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (f == NULL)
 		return (0);
-	data->mutex = f;
+	data->fork = f;
 	while (i < data->nb_philo)
 	{
-		pthread_mutex_init(&data->mutex[i], NULL);
+		pthread_mutex_init(&data->fork[i], NULL);
 		i++;
 	}
 	return (1);
@@ -73,7 +73,7 @@ void	all_destroy(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_mutex_destroy(&data->mutex[i]);
+		pthread_mutex_destroy(&data->fork[i]);
 		i++;
 	}
 }
@@ -100,12 +100,12 @@ int	main(int ac, char **av)
 	if (philo == NULL)
 	{
 		all_destroy(&data);
-		free(data.mutex);
+		free(data.fork);
 		return (0);
 	}
 	philo->data->start_time = get_ms();
 	exe_pthread(philo, fp);
-	end_philo(philo, data.mutex, &data);
+	end_philo(philo, data.fork, &data);
 	return (0);
 	
 	// philo.id = 1;
