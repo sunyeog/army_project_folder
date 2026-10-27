@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:27 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/27 17:43:35 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/27 20:22:37 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	*routine(void *ptr)
 		def_left = philo->data->nb_philo - 1;
 	else
 		def_left = philo->id - 2;
-	pthread_mutex_init(&philo->mutex, NULL);
 	while (i < 3)
 	{
 		take_forks(philo, def_left);
@@ -87,6 +86,5 @@ void	*routine(void *ptr)
 		start_think(philo);
 		i++;
 	}
-	pthread_mutex_destroy(&philo->mutex);
 	return (0);
 }

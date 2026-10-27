@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/27 14:08:31 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/27 20:32:01 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ int	set_fork(t_data *data)
 	return (1);
 }
 
+void	set_mutex(t_philo *philo)
+{
+	int		i;
+
+	i = 0;
+	while (i < philo->data->nb_philo)
+	{
+		pthread_mutex_init(&philo[i].mutex, NULL);
+		philo[i].last_meal = philo[i].data->start_time;
+		i++;
+	}
+}
+
 void	exe_pthread(t_philo *philo, void *(*fp)(void *))
 {
 	int	i;
@@ -58,6 +71,7 @@ void	exe_pthread(t_philo *philo, void *(*fp)(void *))
 		pthread_create(&philo[i].thread, NULL, fp, &philo[i]);
 		i++;
 	}
+	//하씨이봉방 여기다 반복문
 	i = 0;
 	while (i < philo->data->nb_philo)
 	{
@@ -66,7 +80,7 @@ void	exe_pthread(t_philo *philo, void *(*fp)(void *))
 	}
 }
 
-void	all_destroy(t_data *data)
+void	fork_destroy(t_data *data)
 {
 	int	i;
 
@@ -78,9 +92,23 @@ void	all_destroy(t_data *data)
 	}
 }
 
+void	mutex_destroy(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->data->nb_philo)
+	{
+		pthread_mutex_destroy(&philo[i].mutex);
+		i++;
+	}
+	
+}
+
 void end_philo(t_philo *philo, pthread_mutex_t *fork, t_data *data)
 {
-	all_destroy(data);
+	fork_destroy(data);
+	mutex_destroy(philo);
 	free(philo);
 	free(fork);
 }
@@ -99,11 +127,12 @@ int	main(int ac, char **av)
 	philo = set_philo(&data);
 	if (philo == NULL)
 	{
-		all_destroy(&data);
+		fork_destroy(&data);
 		free(data.fork);
 		return (0);
 	}
 	philo->data->start_time = get_ms();
+	set_mutex(philo);
 	exe_pthread(philo, fp);
 	end_philo(philo, data.fork, &data);
 	return (0);
