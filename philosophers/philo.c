@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:27 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/27 20:22:37 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/10/30 17:33:52 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*routine(void *ptr)
 	{
 		take_forks(philo, def_left);
 		pthread_mutex_lock(&philo->mutex);
-		philo->last_meal = get_ms();//이거 mutex감싸기부터 시작. 또 init, destroy해야함. 감시자 만들면 그것도 마찬가지.
+		philo->last_meal = get_ms();
 		pthread_mutex_unlock(&philo->mutex);
 		start_eat(philo);
 		pthread_mutex_unlock(&philo->data->fork[def_left]);
