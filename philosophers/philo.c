@@ -6,34 +6,53 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:27 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/30 17:33:52 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/11/02 18:10:34 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	situ_die(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->mutex_die);
+	if (philo->data->if_died == 1)
+	{
+		pthread_mutex_unlock(&philo->data->mutex_die);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->mutex_die);
+	return (0);
+}
+
 void    start_eat(t_philo *philo)
 {
 	long long start;
 
+	if (situ_die(philo) == 1)
+		return ;
 	start = get_ms();
     printf("%lld %d is eating\n", get_ms() - philo->data->start_time,philo->id);
 	while (get_ms() - start < philo->data->time_eat)
 		usleep(100);
 }
 
-void	start_sleep(t_philo *philo)
+int	start_sleep(t_philo *philo)
 {
 	long long start;
 
+	if (situ_die(philo) == 1)
+		return (1);
 	start = get_ms();
     printf("%lld %d is sleeping\n", get_ms() - philo->data->start_time, philo->id);
 	while (get_ms() - start < philo->data->time_sleep)
 		usleep(100);
+	return (0);
 }
 
 void	start_think(t_philo *philo)
 {
+	if (situ_die(philo) == 1)
+		return ;
     printf("%lld %d is thinking\n", get_ms() - philo->data->start_time, philo->id);
 }
 
@@ -43,6 +62,8 @@ void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 
 	start = philo->data->start_time;
 	pthread_mutex_lock(fork);
+	if (situ_die(philo) == 1)
+		return ;
 	printf("%lld %d has taken a fork\n", get_ms() - start, philo->id);
 }
 
@@ -82,7 +103,8 @@ void	*routine(void *ptr)
 		start_eat(philo);
 		pthread_mutex_unlock(&philo->data->fork[def_left]);
 		pthread_mutex_unlock(&philo->data->fork[philo->id-1]);
-		start_sleep(philo);
+		if (start_sleep(philo) == 1)
+			return (0);
 		start_think(philo);
 		i++;
 	}

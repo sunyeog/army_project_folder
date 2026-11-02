@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/30 21:57:04 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/11/02 17:23:38 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	set_mutex(t_philo *philo)
 		philo[i].last_meal = philo[i].data->start_time;
 		i++;
 	}
+	pthread_mutex_init(&philo->data->mutex_die, NULL);
 }
 
 void	monitoring(t_philo *philo, t_data *data)
@@ -73,6 +74,9 @@ void	monitoring(t_philo *philo, t_data *data)
 			pthread_mutex_lock(&philo[i].mutex);
 			if (get_ms() - philo[i].last_meal > data->time_die)
 			{
+				pthread_mutex_lock(&data->mutex_die);
+				data->if_died = 1;
+				pthread_mutex_unlock(&data->mutex_die);
 				pthread_mutex_unlock(&philo[i].mutex);
 				printf("%lld %d died\n", get_ms() - data->start_time, i + 1);
 				return ;
@@ -125,7 +129,7 @@ void	mutex_destroy(t_philo *philo)
 		pthread_mutex_destroy(&philo[i].mutex);
 		i++;
 	}
-	
+	pthread_mutex_destroy(&philo->data->mutex_die);
 }
 
 void end_philo(t_philo *philo, t_data *data)

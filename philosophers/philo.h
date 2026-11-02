@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:14 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/10/27 14:10:00 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/11/02 18:02:54 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ typedef struct s_data
 	long long		time_sleep;
 	int	 			must_eat;
 	long long		start_time;
+	int				if_died;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	mutex_die;
 }	t_data;
 
 typedef struct s_philo
@@ -48,8 +50,8 @@ int check_range(int ac, char **av, t_data *data);
 int check_num(int ac, char **av);
 int parsing(int ac, char **av, t_data *data);
 long long get_ms(void);
-void    start_eat(t_philo *philo);
-void	start_sleep(t_philo *philo);
+void	start_eat(t_philo *philo);
+int		start_sleep(t_philo *philo);
 void	start_think(t_philo *philo);
 void	take_fork(pthread_mutex_t *mutex, t_philo *philo);
 void	*routine(void *ptr);
