@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:08:00 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/11/02 17:05:02 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/11/10 17:46:45 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int parsing(int ac, char **av, t_data *data)
         data->must_eat = philo_atoi(av[5]);
     else
 		data->must_eat = -1;
-    data->if_died = 0;
+    data->if_end = 0;
     return (0);
 }

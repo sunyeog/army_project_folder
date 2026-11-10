@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/11/02 17:23:38 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/11/10 18:28:33 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_philo	*set_philo(t_data *data)
 	{
 		philo[i].id = i+1;
 		philo[i].data = data;
+		philo[i].how_eat = 0;
 		i++;
 	}
 	return (philo);
@@ -62,6 +63,8 @@ void	set_mutex(t_philo *philo)
 	pthread_mutex_init(&philo->data->mutex_die, NULL);
 }
 
+
+
 void	monitoring(t_philo *philo, t_data *data)
 {
 	int	i;
@@ -71,16 +74,24 @@ void	monitoring(t_philo *philo, t_data *data)
 		i = 0;
 		while (i < philo->data->nb_philo)
 		{
+			while(philo[i].how_eat == philo->data->must_eat && i < data->nb_philo)
+			{
+				i++;
+				if (i > data->nb_philo)
+					return ;
+			}
 			pthread_mutex_lock(&philo[i].mutex);
 			if (get_ms() - philo[i].last_meal > data->time_die)
 			{
 				pthread_mutex_lock(&data->mutex_die);
-				data->if_died = 1;
+				data->if_end = 1;
 				pthread_mutex_unlock(&data->mutex_die);
 				pthread_mutex_unlock(&philo[i].mutex);
 				printf("%lld %d died\n", get_ms() - data->start_time, i + 1);
 				return ;
 			}
+			if (data->must_eat == philo[i].how_eat)
+
 			pthread_mutex_unlock(&philo[i].mutex);
 			i++;
 			usleep(5);
