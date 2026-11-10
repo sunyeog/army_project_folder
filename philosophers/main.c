@@ -6,7 +6,7 @@
 /*   By: sunhnoh <sunhnoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 00:07:50 by sunhnoh           #+#    #+#             */
-/*   Updated: 2026/11/10 18:28:33 by sunhnoh          ###   ########.fr       */
+/*   Updated: 2026/11/10 18:57:51 by sunhnoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,20 @@ void	monitoring(t_philo *philo, t_data *data)
 		i = 0;
 		while (i < philo->data->nb_philo)
 		{
-			while(philo[i].how_eat == philo->data->must_eat && i < data->nb_philo)
+			while(i < philo->data->nb_philo)
 			{
+				if (philo[i].how_eat != philo->data->must_eat)
+					break ;
 				i++;
 				if (i > data->nb_philo)
+				{
+					pthread_mutex_lock(&data->mutex_die);
+					data->if_end = 2;
+					pthread_mutex_unlock(&data->mutex_die);
 					return ;
-			}
+				}
+				i++;
+			}//이거 여기에서 must조건 컷할수 있지 않을까
 			pthread_mutex_lock(&philo[i].mutex);
 			if (get_ms() - philo[i].last_meal > data->time_die)
 			{
@@ -90,8 +98,6 @@ void	monitoring(t_philo *philo, t_data *data)
 				printf("%lld %d died\n", get_ms() - data->start_time, i + 1);
 				return ;
 			}
-			if (data->must_eat == philo[i].how_eat)
-
 			pthread_mutex_unlock(&philo[i].mutex);
 			i++;
 			usleep(5);
